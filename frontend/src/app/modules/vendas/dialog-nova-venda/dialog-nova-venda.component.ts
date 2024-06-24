@@ -73,7 +73,7 @@ export class DialogNovaVendaComponent implements OnInit {
     this.form.controls['codBarras'].valueChanges.pipe(
       debounceTime(500)
     ).subscribe((codBarras) => {
-      if (codBarras.length == 13) {
+      if (codBarras.length >= 11) {
         this.produtoService.getProdutoByCodBarras(codBarras).subscribe((produto) => {
           if (produto.status === 200) {
             let produtoSelecionado = this.produtosDaVenda.find(p => p.produto.id === produto.entity.id);
@@ -104,7 +104,7 @@ export class DialogNovaVendaComponent implements OnInit {
 
 
   onInput(event: any) {
-    event.target.value = event.target.value.replace(/[^\d]/g, '');
+    this.form.controls['codBarras'].setValue(event.target.value);
   }
 
 
