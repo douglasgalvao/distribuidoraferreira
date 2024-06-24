@@ -1,0 +1,147 @@
+<mat-toolbar class="toolbarContent">
+    <div></div>
+    <mat-card-title class="title">Cadastrar Venda</mat-card-title>
+    <div style="display: flex;" >
+        <mat-icon mat-dialog-close class="contentCloseDialog">close</mat-icon>
+    </div>
+</mat-toolbar>
+<mat-card class="content">
+    <mat-card-content>
+        <mat-dialog-content class="dialogContainer">
+            <form [formGroup]="form" class="formContainer">
+
+                <mat-form-field appearance="fill" class="hide-spinner-buttons">
+                    <mat-label>Pesquisar Produtos By Code</mat-label>
+                    <input matInput type="text" formControlName="codBarras" #codBarrasElement (input)="onInput($event)"
+                        required>
+                </mat-form-field>
+
+
+                <div style="display: flex; gap:1rem">
+                    <mat-form-field>
+                        <input type="text" matInput placeholder="Pesquisar Produtos" (keyup)="applyFilter($event)"
+                            [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let pVenda of produtosDaVenda" [value]=""
+                                (click)="selectItemVenda(pVenda)">
+                                <div style="display: flex; align-items: center; justify-content: center; gap: 2rem;">
+                                    <img [src]="pVenda.produto.img" width="64px" height="64px" alt="">
+                                    <p>{{pVenda.produto.nome}}</p>
+                                </div>
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+
+
+                <div style="display: flex; gap:1rem">
+                    <div *ngIf="produtosDaVendaSelected.length" class="card-container">
+                        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+                            <ng-container matColumnDef="produto">
+                                <th mat-header-cell *matHeaderCellDef>Nome</th>
+                                <td mat-cell *matCellDef="let item">
+                                    {{item.produto.nome}}
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="quantidade">
+                                <th mat-header-cell *matHeaderCellDef>Qtd</th>
+                                <td mat-cell *matCellDef="let item">
+                                    <input type="text" style="max-width: 40px;" [value]="" (input)="onInput($event)"
+                                        (change)="changeQuantidadeItens($event,item.produto.id)">
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="img">
+                                <th mat-header-cell *matHeaderCellDef>Imagem</th>
+                                <td mat-cell *matCellDef="let item">
+                                    <img [src]="item.produto.img" width="48px" height="48px" alt="">
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="actions">
+                                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                                <td mat-cell class="actionsButtons" *matCellDef="let item">
+                                    <div style="display:flex;">
+                                        <button class="deleteActionsProdutos" (mousedown)="removeItenVenda(item)">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </div>
+                                </td>
+                            </ng-container>
+
+
+
+                            <!-- Definição de linhas e colunas -->
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns">
+                            </tr>
+                            <tr mat-row *matRowDef="let row; columns:displayedColumns">
+                            </tr>
+                        </table>
+
+                        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                            aria-label="Selecione a página">
+                        </mat-paginator>
+
+                    </div>
+                </div>
+
+
+                <div style="display:flex; gap:1rem">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Método de Pagamento</mat-label>
+                        <mat-select placeholder="Selecione o Tipo Pagamento" required formControlName="metodoPagamento">
+                            <mat-option *ngFor="let item of tiposDePagamento" [value]="item.value">
+                                {{item.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div *ngIf="form.controls['metodoPagamento'].value == 'CONTACLIENTE'" style="display:flex; gap:1rem">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Conta Cliente</mat-label>
+                        <mat-select placeholder="Selecione o Cliente" required formControlName="contaCliente">
+                            <mat-option *ngFor="let cliente of clientes" [value]="cliente.id">
+                                {{cliente.nome_cliente}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+
+                <!-- <div style="display:flex; gap:1rem">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Status da Venda</mat-label>
+                        <mat-select placeholder="Selecione o Status" required formControlName="statusVenda">
+                            <mat-option *ngFor="let item of tiposDeStatus" [value]="item.value">
+                                {{item.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div> -->
+
+                <div style="display:flex; gap:1rem">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Observação</mat-label>
+                        <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="3"
+                            cdkAutosizeMaxRows="6" formControlName="observacao"></textarea>
+                    </mat-form-field>
+                </div>
+
+            </form>
+        </mat-dialog-content>
+
+        <mat-dialog-actions class="actionsContainer">
+            <!-- [mat-dialog-close]="form.value"  -->
+            <button class="confirmButton" mat-button (click)="cadastrarVenda()"
+                [disabled]="!produtosDaVendaSelected.length">Cadastrar</button>
+            <button class="cancelButton" mat-button (click)="closeDialog()">Fechar</button>
+
+        </mat-dialog-actions>
+
+    </mat-card-content>
+</mat-card>

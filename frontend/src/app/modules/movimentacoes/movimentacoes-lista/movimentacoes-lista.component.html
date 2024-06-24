@@ -1,0 +1,78 @@
+<mat-card>
+    <mat-card-content>
+    <mat-form-field>
+        <mat-label>Buscar Movimentação</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Pesquisar" #input>
+    </mat-form-field>
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+            <!-- Definição das colunas -->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef class="thValue"> ID </th>
+                <td mat-cell *matCellDef="let movimentacao">
+                    <p class="tableValue">
+                        {{movimentacao.id_movimentacao}} </p>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="horarioRegistro">
+                <th mat-header-cell *matHeaderCellDef class="thValue"> Horário Registro </th>
+                <td mat-cell *matCellDef="let movimentacao">
+                    <p class="tableValue">
+                        {{movimentacao.horario_registro}} </p>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tipo">
+                <th mat-header-cell *matHeaderCellDef class="thValue"> Tipo Movimentação </th>
+                <td mat-cell *matCellDef="let movimentacao">
+                    <p class="tableValue">{{movimentacao.tipo}} </p>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="quantidade">
+                <th mat-header-cell *matHeaderCellDef class="thValue"> Quantidade </th>
+                <td mat-cell *matCellDef="let movimentacao">
+                    <p class="tableValue">
+                        {{movimentacao.quantidade}}
+                    </p>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="produto">
+                <th mat-header-cell *matHeaderCellDef class="thValue"> Produto </th>
+                <td mat-cell *matCellDef="let movimentacao">
+                    <p class="tableValue">
+                        {{movimentacao.nome_produto}}
+                    </p>
+                </td>
+
+            </ng-container>
+
+            <ng-container matColumnDef="observacao">
+                <th mat-header-cell *matHeaderCellDef class="thValue"> Observação </th>
+                <td mat-cell *matCellDef="let movimentacao">
+                    <p class="tableValue">
+                        {{movimentacao.observacao}}
+                    </p>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="totalMovimentacao">
+                <th mat-header-cell *matHeaderCellDef class="thValue"> Total Movimentação </th>
+                <td mat-cell *matCellDef="let movimentacao">
+                    <p class="tableValue"> {{ formatarValorMonetario(movimentacao.valor) }}
+                    </p>
+                </td>
+            </ng-container>
+
+            <!-- Definição de linhas e colunas -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns">
+            </tr>
+            <tr mat-row *matRowDef="let row; columns:displayedColumns">
+            </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            aria-label="Selecione a página"></mat-paginator>
+    </mat-card-content>
+</mat-card>

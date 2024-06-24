@@ -1,0 +1,62 @@
+.content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.toolbar {
+    background-color: #333333;
+    color: #FFFFFF;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2px;
+}
+
+.card {
+    width: max-content;
+    margin: 1rem 2rem;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+
+}
+
+.homeBalanceValuePositive {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #008000;
+
+}
+
+.homeBalanceValueNegative {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #FF0000;
+
+}
+
+.homeBalanceTitle {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333333;
+}
+
+.iconUpPositive {
+    color: #008000;
+    position: absolute;
+    top: 45%;
+}
+
+
+.iconUpNegative {
+    color: #FF0000;
+    position: absolute;
+    top: 65%;
+}
+
+.contentCard {
+    padding: 2rem 4rem;
+    margin: 0;
+}

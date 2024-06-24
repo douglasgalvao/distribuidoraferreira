@@ -1,0 +1,28 @@
+<mat-card class="card">
+    <div class="toolbar">
+        <mat-toolbar>
+            <h4 class="toolbarText">Comanda - {{comanda.id}}</h4>
+        </mat-toolbar>
+    </div>
+
+    <div class="body">
+        <mat-card-content class="content">
+            <p>Cliente: <span style="font-weight: 700;"> {{comanda.nomeCliente}}</span></p>
+
+        </mat-card-content>
+
+        <mat-card-content class="content">
+            <p>Data: <span style="font-weight: 700;">{{ comanda.data_hora | date: 'dd/MM/yyyy, HH:mm:ss' }}</span> </p>
+        </mat-card-content>
+
+        <mat-card-content class="content" style="display: flex; justify-content: center;">
+            <app-actions-buttons-comanda [comanda]="comanda"></app-actions-buttons-comanda>
+        </mat-card-content>
+
+        <mat-card-content class="content">
+            <p class="statusComanda">Status: {{comanda.status}}
+            </p>
+
+        </mat-card-content>
+    </div>
+</mat-card>

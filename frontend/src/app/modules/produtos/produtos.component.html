@@ -1,0 +1,15 @@
+<div [@fadeIn]>
+    <app-toolbar [actions]="actions" [toolbarTitle]="toolbarTitle"></app-toolbar>
+    <mat-card>
+        <mat-card-content>
+            <mat-tab-group class="custom-tab-group" color="accent">
+                <mat-tab label="Produtos">
+                    <app-table-pagination-produto></app-table-pagination-produto>
+                </mat-tab>
+                <mat-tab label="Categorias">
+                    <app-table-pagination-categoria></app-table-pagination-categoria>
+                </mat-tab>
+            </mat-tab-group>
+        </mat-card-content>
+    </mat-card>
+</div>

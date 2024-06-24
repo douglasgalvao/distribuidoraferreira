@@ -1,0 +1,44 @@
+<mat-toolbar #toolbar class="mat-elevation-z3" [ngClass]="{'scrolled-toolbar': false}">
+    <button (click)="toggleDrawer()" mat-icon-button>
+        <mat-icon>menu</mat-icon>
+    </button>
+    <a routerLink="content/home" class="logoHome">
+        <span>
+            <img src="../../assets/beerPNG.png" *ngIf="showIcon" alt="" width="48px" height="48px">
+            <p *ngIf="showIcon">Distribuidora Ferreira</p>
+            <img src="../../assets/beerPNG.png" alt="" width="48px" height="48px">
+        </span>
+    </a>
+    <div style="display: flex; gap: 1rem; justify-content: end; width: 100%;">
+        <div class="notifications">
+
+            <div (click)="openDialogVendasPendentes()">
+                <mat-icon [matBadge]="vendasStatusPendente.length ? vendasStatusPendente.length : null "
+                    matBadgeColor="warn" aria-hidden="false">insert_invitation</mat-icon>
+            </div>
+
+            <div>
+                <mat-icon [matBadge]="produtoEstoqueBaixo.length ? produtoEstoqueBaixo.length : null "
+                    matBadgeColor="warn" [matMenuTriggerFor]="menu"
+                    aria-hidden="false">notification_important</mat-icon>
+                <mat-menu #menu="matMenu">
+                    <div *ngIf="produtoEstoqueBaixo.length === 0" class="empty-menu">
+                        Nenhum produto com estoque baixo.
+                    </div>
+                    <div *ngFor="let produto of produtoEstoqueBaixo" class="menu-item">
+                        <div>
+                            {{ produto.nome }}
+                        </div>
+                        <div>
+                            - Estoque: {{ produto.estoque }}
+                        </div>
+                    </div>
+                </mat-menu>
+            </div>
+        </div>
+    </div>
+</mat-toolbar>
+
+<div class="content">
+    <app-menu-lateral class="app-menu-lateral"></app-menu-lateral>
+</div>

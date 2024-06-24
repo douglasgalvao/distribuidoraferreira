@@ -1,0 +1,30 @@
+<mat-toolbar class="toolbarContent">
+    <div></div>
+    <mat-card-title class="title">Abertura de Caixa</mat-card-title>
+    <div style="display: flex;" >
+        <mat-icon mat-dialog-close class="contentCloseDialog">close</mat-icon>
+    </div>
+</mat-toolbar>
+<mat-card class="content">
+    <mat-card-content>
+        <mat-dialog-content class="dialogContainer">
+            <form [formGroup]="form" class="formContainer">
+                <div style="display: flex; gap:1rem">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Valor Inicial Caixa</mat-label>
+                        <input matInput type="text"  formControlName="valor_inicial" required>
+                    </mat-form-field>
+                </div>
+            </form>
+        </mat-dialog-content>
+
+        <mat-dialog-actions class="actionsContainer">
+            <button class="confirmButton" mat-button [mat-dialog-close]="true"
+            (click)="abrirCaixa(form.value)">Abrir</button>
+            <button class="cancelButton" mat-button (click)="closeDialog()">Cancelar</button>
+
+        </mat-dialog-actions>
+
+    </mat-card-content>
+</mat-card>
+

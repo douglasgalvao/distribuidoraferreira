@@ -1,0 +1,47 @@
+<mat-toolbar>
+    Editar Produto
+    <span class="spacer"></span>
+</mat-toolbar>
+<mat-card>
+    <mat-card-content>
+        <form [formGroup]="form" id="formEditProduto">
+
+            <mat-form-field appearance="fill">
+                <mat-label>Nome do Produto</mat-label>
+                <input matInput formControlName="nome" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Preço Venda</mat-label>
+                <input matInput formControlName="preco" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Preço Consumo</mat-label>
+                <input matInput formControlName="precoConsumo" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Categoria</mat-label>
+                <mat-select formControlName="categoria" required>
+                    <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">
+                        {{categoria.nome}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+
+        <div class="containerButtonsEditProduto">
+            <button class="saveButton" mat-button (click)="saveProductEdited(form.value)">
+                <mat-icon>save</mat-icon>
+                <span>Salvar</span>
+            </button>
+
+            <button class="cancelButton" mat-button (click)="closeEditDialog()">
+                <mat-icon>cancel</mat-icon>
+                <span>Cancelar</span>
+            </button>
+        </div>
+
+    </mat-card-content>
+</mat-card>

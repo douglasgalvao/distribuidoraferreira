@@ -1,0 +1,34 @@
+<mat-card class="matCardToolbar" [@fadeIn]>
+    <mat-card-content>
+        <mat-toolbar class="mat-elevation-z3">
+            {{ toolbarTitle }}
+            <span class="spacer"></span>
+
+            <ng-container *ngFor="let action of actions">
+                <div *ngIf="action.menuItems.length > 0">
+
+
+                    <button [matMenuTriggerFor]="menus[action.menu]" mat-button class="btnNovaAcao">
+                        <mat-icon>{{ action.icon }}</mat-icon>
+                        {{ action.label }}
+                    </button>
+                    <mat-menu [overlapTrigger]="false" #menu [class.hidden]="!menus[action.menu]">
+                        <ng-container *ngFor="let menuItem of action.menuItems">
+                            <mat-list-item (click)="menuItem.action()">
+                                <a mat-menu-item>
+                                    <mat-icon>{{ menuItem.icon }}</mat-icon>
+                                    {{ menuItem.label }}
+                                </a>
+                            </mat-list-item>
+                        </ng-container>
+                    </mat-menu>
+
+                    <!-- Adiciona o menu ao objeto menus -->
+                    <ng-container *ngIf="!menus[action.menu]">
+                        {{ menus[action.menu] = menu }}
+                    </ng-container>
+                </div>
+            </ng-container>
+        </mat-toolbar>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,56 @@
+<mat-toolbar class="toolbarContent">
+    <div></div>
+    <mat-card-title class="title">Cadastrar Movimentação</mat-card-title>
+    <div style="display: flex;" >
+        <mat-icon mat-dialog-close class="contentCloseDialog">close</mat-icon>
+    </div>
+</mat-toolbar>
+<mat-card class="content">
+    <mat-card-content>
+        <mat-dialog-content class="dialogContainer">
+            <form [formGroup]="form" class="formContainer">
+
+
+                <div style="display: flex; gap:1rem">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Quantidade De Itens</mat-label>
+                        <input matInput type="text" formControlName="quantidade" required>
+                    </mat-form-field>
+                </div>
+                <div style="display: flex; gap:1rem">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Tipo Movimentação</mat-label>
+                        <mat-select placeholder="Selecione o Tipo" formControlName="tipo" required>
+                            <mat-option value="SAIDA">PERDA</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Produto</mat-label>
+                        <mat-select placeholder="Selecione o Produto" formControlName="produto" required>
+                            <mat-option *ngFor="let produto of produtos" [value]="produto">{{produto.nome}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div style="display:flex; gap:1rem">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Observação</mat-label>
+                        <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="3" formControlName="observacao"
+                            cdkAutosizeMaxRows="6"></textarea>
+                    </mat-form-field>
+                </div>
+            </form>
+
+
+
+        </mat-dialog-content>
+
+        <mat-dialog-actions class="actionsContainer">
+            <button class="confirmButton" mat-button [mat-dialog-close]="form.value"
+                (click)="salvarMovimentacao(this.form.value)">Cadastrar</button>
+            <button class="cancelButton" mat-button (click)="closeDialog()">Fechar</button>
+        </mat-dialog-actions>
+
+    </mat-card-content>
+</mat-card>

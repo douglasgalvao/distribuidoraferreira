@@ -1,0 +1,11 @@
+<mat-toolbar>
+    <h1 mat-dialog-title>Confirmar Exclusão</h1>
+</mat-toolbar>
+<div mat-dialog-content>
+    <p>Você tem certeza que deseja excluir o produto com ID: {{ produtoObject.id }} e Nome: {{ produtoObject.nome}}?</p>
+</div>
+<div mat-dialog-actions class="actionsButtons">
+    <button mat-button class="confirmButton" [mat-dialog-close]="true" (click)="deleteProdutoConfirm()"
+        cdkFocusInitial>Confirmar</button>
+    <button mat-button class="cancelButton" (click)="closeDialogConfirmation()">Cancelar</button>
+</div>

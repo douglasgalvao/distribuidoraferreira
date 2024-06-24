@@ -1,0 +1,10 @@
+<mat-toolbar>
+    <h1 mat-dialog-title>Finalizar Caixa</h1>
+</mat-toolbar>
+<div mat-dialog-content>
+    <p>Você tem certeza que deseja finalizar o caixa?</p>
+</div>
+<div mat-dialog-actions class="actionsButtons">
+    <button mat-button class="confirmButton" [mat-dialog-close]="true" (click)="fecharCaixa()">Confirmar</button>
+    <button mat-button class="cancelButton" [mat-dialog-close]="true">Cancelar</button>
+</div>

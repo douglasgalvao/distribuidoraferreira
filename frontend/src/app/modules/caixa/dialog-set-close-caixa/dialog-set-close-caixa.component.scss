@@ -1,0 +1,47 @@
+.actionsButtons {
+    display: flex;
+    justify-content: flex-end;
+    margin: 1rem;
+
+    .confirmButton {
+        background-color: #1acb1a;
+        opacity: 1;
+        color: #fff;
+
+        :hover {
+            cursor: pointer;
+            background-color: rgba(255, 0, 0, 0.484);
+        }
+
+    }
+
+    .confirmButton:disabled {
+        background-color: #ccc;
+        opacity: 1;
+        color: #fff;
+    }
+
+    .cancelButton {
+        :hover {
+            cursor: pointer;
+            background-color: rgba(255, 0, 0, 0.484);
+        }
+
+        background-color: #cb3939;
+        opacity: 1;
+        color: #fff;
+    }
+}
+
+
+mat-toolbar {
+    display: flex;
+    justify-content: center;
+    background-color: yellow;
+    color: #121212;
+}
+
+p {
+    font-size: 1rem;
+    font-weight: bold;
+}

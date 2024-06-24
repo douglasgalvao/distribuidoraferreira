@@ -1,0 +1,67 @@
+<mat-card>
+    <mat-card-content>
+        <mat-form-field>
+            <mat-label>Buscar Compra</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Pesquisar" #input>
+        </mat-form-field>
+
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef class="thCell">ID</th>
+                <td mat-cell *matCellDef="let compra">
+                    <p class="pValueTable"> {{compra.compra_id}}</p>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="dataEHora">
+                <th mat-header-cell *matHeaderCellDef class="thCell">Data Hora</th>
+                <td mat-cell *matCellDef="let compra">
+                    <p class="pValueTable">
+                        {{compra.data_hora}}</p>
+                </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="totalCompra">
+                <th mat-header-cell *matHeaderCellDef class="thCell">Total da Compra</th>
+                <td mat-cell *matCellDef="let compra">
+                    <p class="pValueTable">
+                        {{ formatarValorMonetario(compra.total_compra) }}</p>
+                </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="metodoPagamento">
+                <th mat-header-cell *matHeaderCellDef class="thCell">Metodo de Pagamento</th>
+                <td mat-cell *matCellDef="let compra">
+                    <p class="pValueTable">
+                        {{compra.metodo_pagamento}}</p>
+                </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="detalhes">
+                <th mat-header-cell *matHeaderCellDef class="thCell">Detalhes</th>
+                <td mat-cell class="actionsButtons" *matCellDef="let compra">
+                    <div class="pValueTable">
+                        <button class="detalhesProduto" (click)="openDialogDetalhesProduto(compra)">
+                            <mat-icon>list_alt</mat-icon>
+                        </button>
+                    </div>
+                </td>
+            </ng-container>
+
+
+            <!-- Definição de linhas e colunas -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns">
+            </tr>
+            <tr mat-row *matRowDef="let row; columns:displayedColumns">
+            </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            aria-label="Selecione a página"></mat-paginator>
+    </mat-card-content>
+</mat-card>

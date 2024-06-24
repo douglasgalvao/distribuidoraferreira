@@ -1,0 +1,88 @@
+<mat-toolbar class="toolbarContent">
+    <div></div>
+    <mat-card-title class="title">Cadastrar Produto</mat-card-title>
+    <div style="display: flex;" >
+        <mat-icon mat-dialog-close class="contentCloseDialog">close</mat-icon>
+    </div>
+</mat-toolbar>
+<mat-card class="content">
+    <mat-card-content>
+        <mat-dialog-content class="dialogContainer">
+            <form [formGroup]="form" class="formContainer">
+
+                <div class="file-uploadedContent">
+                    <div class="file-uploaded" *ngIf="existsPhoto">
+                        <mat-card>
+                            <mat-card-content class="photoContent">
+                                <img [src]="photoImgUrlAPI" class="fotoProduto" />
+                            </mat-card-content>
+                            <span>Nome: {{nomeProdutoAPI}}</span>
+                        </mat-card>
+                    </div>
+                    <div class="file-upload" [class.foto-selecionada]="fotoSelecionada"
+                        *ngIf="!photoImgUrlAPI.length && !existsPhoto">
+                        <label for="file-input" class="upload-label">
+                            <mat-icon>cloud_upload</mat-icon>
+                            <span *ngIf="!fotoSelecionada">Clique para fazer o upload<br>ou arraste e solte aqui</span>
+                            <span *ngIf="fotoSelecionada">Foto Selecionada!<br> </span>
+                        </label>
+                        <input type="file" id="file-input" (change)="salvarFotoAtual($event)">
+                    </div>
+                </div>
+
+
+                <mat-form-field appearance="fill" class="hide-spinner-buttons">
+                    <mat-label>Código de Barras</mat-label>
+                    <input matInput type="text" formControlName="codBarras" (input)="onInput($event)" #codBarrasElement
+                        required>
+                </mat-form-field>
+
+
+                <div style="display: flex; gap:1rem">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Nome do Produto</mat-label>
+                        <input matInput type="text" formControlName="nome" (change)="onInputNomeProduto($event)"
+                            required>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Categoria do Produto</mat-label>
+                        <mat-select placeholder="Selecione a categoria" formControlName="categoria" required>
+                            <mat-option *ngFor="let categoria of categorias" [value]="categoria">
+                                {{categoria.nome.toUpperCase()}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div style="display: flex; gap:1rem">
+                    <mat-form-field appearance="fill" class="hide-spinner-buttons">
+                        <mat-label>Preço de Venda</mat-label>
+                        <input matInput type="text" (input)="onInputPoint($event)" formControlName="preco" required>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="hide-spinner-buttons">
+                        <mat-label>Preço de Consumo</mat-label>
+                        <input matInput type="text" (input)="onInputPoint($event)" formControlName="precoConsumo" required>
+                    </mat-form-field>
+                </div>
+            </form>
+
+
+
+        </mat-dialog-content>
+        <div class="errorProdutoContainer">
+            <mat-error *ngIf="produtoJaExiste && produtoJaVerificada" class="error">Produto já existente no
+                sistema!</mat-error>
+        </div>
+        <mat-dialog-actions class="actionsContainer">
+            <button class="confirmButton" mat-button [mat-dialog-close]="form.value" [disabled]="!form.valid"
+                (click)="cadastrarNovoProduto(form.value)">Cadastrar</button>
+            <button class="cancelButton" mat-button (click)="closeDialog()">Fechar</button>
+            <!--
+            <button mat-icon-button [disabled]="!this.form.valid" (click)="verificarProduto()">
+                <mat-icon>refresh</mat-icon>
+            </button> -->
+        </mat-dialog-actions>
+
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,28 @@
+<mat-toolbar class="toolbarContent">
+    <div></div>
+    <mat-card-title class="title">Criar Comanda</mat-card-title>
+    <div style="display: flex;" >
+        <mat-icon mat-dialog-close class="contentCloseDialog">close</mat-icon>
+    </div>
+</mat-toolbar>
+<mat-card class="content">
+    <mat-card-content>
+        <mat-dialog-content class="dialogContainer">
+            <form [formGroup]="form">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-select placeholder="Selecione o Cliente" formControlName="cliente" required>
+                        <mat-option *ngFor="let cliente of clientes" [value]="cliente.id">
+                            {{cliente.nome_cliente | titlecase}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
+        </mat-dialog-content>
+        <mat-dialog-actions class="actionsContainer">
+            <button class="save-button" mat-button color="primary" (click)="createComanda()">Salvar</button>
+
+            <button class="close-button" mat-button (click)="closeDialog()">Fechar</button>
+
+        </mat-dialog-actions>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,40 @@
+<mat-toolbar class="toolbarContent">
+    <div></div>
+    <mat-card-title class="title">Confirmar Pagamento</mat-card-title>
+    <div style="display: flex;">
+        <mat-icon mat-dialog-close class="contentCloseDialog">close</mat-icon>
+    </div>
+</mat-toolbar>
+<mat-card class="content">
+    <mat-card-content>
+        <mat-dialog-content class="dialogContainer">
+            <form [formGroup]="form" class="formContainer">
+                <div style="display: flex; gap:1rem">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Valor Pagamento</mat-label>
+                        <input matInput type="text" formControlName="total_venda" required>
+                    </mat-form-field>
+                </div>
+
+
+                <div class="metodosPamentoSelect">
+                    <mat-form-field class="matformFields">
+                        <!-- SELECT de metodos de pagamento-->
+                        <mat-label>Métodos de Pagamento</mat-label>
+                        <mat-select formControlName="metodoComanda">
+                            <mat-option *ngFor="let metodo of metodosPagamento"
+                                [value]="metodo.id">{{metodo.nome}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+            </form>
+        </mat-dialog-content>
+
+        <mat-dialog-actions class="actionsContainer">
+            <button class="confirmButton" mat-button [mat-dialog-close]="true"
+                (click)="pagarContaCliente(form.value)">Confirmar</button>
+            <button class="cancelButton" mat-button (click)="closeDialog()">Cancelar</button>
+        </mat-dialog-actions>
+    </mat-card-content>
+</mat-card>

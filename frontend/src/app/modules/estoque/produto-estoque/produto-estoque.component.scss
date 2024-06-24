@@ -1,0 +1,36 @@
+.cardProduto {
+    padding: 1rem;
+    width: max-content;
+    margin: 1rem;
+    flex-wrap: wrap;
+    border: 1px solid rgba(109, 109, 109, 0.1);
+    filter: box-shadow(0px 0px 5px rgba(109, 109, 109, 0.1));
+
+    .cardContent {
+        p {
+            font-weight: bold;
+        }
+    }
+}
+
+.imgProduto {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.AdcEstoqueButton {
+    background-color: #1acb1a;
+    color: white;
+}
+
+.DefBaixoEstoqueButton {
+    background-color: rgba(255, 0, 0, 0.774);
+    color: white;
+}
+
+.containerButtonsProduto {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}

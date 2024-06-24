@@ -1,0 +1,14 @@
+<mat-card matBadge="{{produto.quantidade}}" class="cardProduto" [@fadeIn]>
+    <mat-card-content class="cardContent">
+        <img src="{{produto.img}}" class="imgProduto">
+        <h3>{{produto.nome.length > 20 ? (produto.nome | slice:0:20) + '...' : produto.nome }}</h3>
+        <p>Preço : {{ formatarValorMonetario(produto.preco) }} </p>
+        <p>Estoque : {{produto.estoque}}</p>
+        <p>Estoque Minimo Definido: {{produto.estoqueMinimo}}</p>
+        <div class="containerButtonsProduto">
+            <button mat-raised-button class="DefBaixoEstoqueButton" (click)="definirEstoqueMinimo(produto)">
+                <mat-icon>notification_important</mat-icon>
+                Definir Baixo Estoque</button>
+        </div>
+    </mat-card-content>
+</mat-card>

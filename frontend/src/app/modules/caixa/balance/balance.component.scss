@@ -1,0 +1,156 @@
+.content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.toolbar {
+    background-color: #333333;
+    color: #FFFFFF;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2px;
+}
+
+
+
+.abrir {
+    width: max-content;
+    margin: 1rem 2rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    
+}
+
+.abrir button {
+    background-color: #333333;
+    height: 100%;
+    width: 100%;
+    font-size: 1.5rem;
+
+    .icon {
+        height: 100%;
+        width: 100%;
+        font-size: 2rem;
+    }
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+        transition: all 0.3s ease-in-out;
+        background-color: green;
+        
+
+        .homeActionIcon,
+        .homeActionTitle {
+            color: #333333;
+        }
+    }
+
+    &:not(:hover) {
+        transition: all 0.3s ease-in-out;
+        
+        &:after {
+            background-color: #121212;
+        }
+
+    }
+}
+
+.fechar {
+    width: max-content;
+    margin: 1rem 2rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    
+}
+
+.fechar button {
+    background-color: #333333;
+    height: 100%;
+    width: 100%;
+    font-size: 1.5rem;
+
+    .icon {
+        height: 100%;
+        width: 100%;
+        font-size: 2rem;
+    }
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+        transition: all 0.3s ease-in-out;
+        background-color: red;
+        
+
+        .homeActionIcon,
+        .homeActionTitle {
+            color: #333333;
+        }
+    }
+
+    &:not(:hover) {
+        transition: all 0.3s ease-in-out;
+        
+        &:after {
+            background-color: #121212;
+        }
+
+    }
+}
+
+
+
+.card {
+    width: max-content;
+    margin: 1rem 2rem;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+
+}
+
+.homeBalanceValuePositive {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #008000;
+
+}
+
+.homeBalanceValueNegative {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #FF0000;
+
+}
+
+.homeBalanceTitle {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333333;
+}
+
+.iconUpPositive {
+    color: #008000;
+    position: absolute;
+    top: 45%;
+}
+
+
+.iconUpNegative {
+    color: #FF0000;
+    position: absolute;
+    top: 65%;
+}
+
+.contentCard {
+    padding: 2rem 4rem;
+    margin: 0;
+}

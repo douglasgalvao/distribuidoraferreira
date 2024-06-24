@@ -1,0 +1,38 @@
+mat-toolbar {
+    background-color: yellow;
+}
+
+
+mat-list-item:hover {
+    background-color: yellow;
+
+    a {
+        color: #121212;
+    }
+
+    opacity: 1;
+    transition: background-color 0.2s;
+}
+
+mat-card {
+    border: none;
+    background-color: transparent;
+}
+
+.btnNovaAcao {
+    color: yellow;
+    opacity: 0.91;
+    background-color: #121212;
+    margin: 1rem;
+}
+
+.btnNovaAcao:hover {
+    background-color: #121212;
+    color: yellow;
+    opacity: 1;
+    transition: background-color 0.5s;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}

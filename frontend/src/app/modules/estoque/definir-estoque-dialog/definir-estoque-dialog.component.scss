@@ -1,0 +1,85 @@
+mat-card-content {
+    .imgProdutoEstoque {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+    }
+
+    .buttonAdcEstoque {
+        background-color: #1acb1a;
+        opacity: 1;
+        color: #fff;
+
+        :hover {
+            cursor: pointer;
+            background-color: rgba(255, 0, 0, 0.484);
+        }
+    }
+
+    .buttonCancelarAdc {
+        :hover {
+            cursor: pointer;
+            background-color: rgba(255, 0, 0, 0.484);
+        }
+
+        background-color: #cb3939;
+        opacity: 1;
+        color: #fff;
+    }
+}
+
+mat-toolbar {
+    display: flex;
+    justify-content: space-around;
+    background-color: yellow;
+    color: #121212;
+}
+
+.dialogContainer {
+    justify-content: center;
+}
+
+.contentCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contentCloseDialog {
+    display: flex;
+    padding: 0.5rem;
+
+    &:hover {
+        cursor: pointer;
+        border-radius: 100%;
+        background-color: #1212128b;
+    }
+}
+
+.containerProdutoInformations {
+    text-align: center;
+}
+
+mat-form-field {
+    width: 100%;
+
+    .inputQuantidade {
+        width: 100%;
+    }
+}
+
+mat-error{
+    text-align: center;
+    margin: 0.5rem;
+}
+
+
+.contentButtons{
+    gap: 1rem;
+    display: flex;
+    justify-content: space-around;
+}
+.toolbarContent {
+    display: flex;
+    justify-content: space-between;
+}

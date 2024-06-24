@@ -1,0 +1,72 @@
+.content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    // flex-wrap: wrap;
+}
+
+
+
+.card {
+    width: max-content;
+    // margin: 0.1rem 0.2rem;
+    background-color: #121212;
+    border-radius: 6px;
+    min-width: 64px;
+    max-width: 96px;
+    position: relative;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+
+    &:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 3px;
+        transition: width 0.3s ease-in-out;
+    }
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+        transition: all 0.3s ease-in-out;
+
+        &:after {
+            width: 100%;
+            background: yellow;
+        }
+
+        .homeActionIcon,
+        .homeActionTitle {
+            color: yellow;
+        }
+    }
+
+    &:not(:hover) {
+        transition: all 0.3s ease-in-out;
+        
+        &:after {
+            background-color: #121212;
+        }
+
+    }
+}
+
+.homeActionTitle {
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: white;
+
+}
+
+.homeAction {
+    display: flex;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    // gap: 0.5rem;
+    flex-direction: column;
+}

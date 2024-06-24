@@ -1,0 +1,45 @@
+<div class="content">
+
+    <div class="abrir" *ngIf="!caixaAberto">
+        <button mat-fab extended (click)="actions[0].action()">
+            <div>
+                <mat-icon class="icon">money</mat-icon>
+            </div>
+            Abrir Caixa
+        </button>
+    </div>
+
+    <div class="fechar" *ngIf="caixaAberto">
+        <button mat-fab extended (click)="actions[1].action()">
+            <div>
+                <mat-icon class="icon">money</mat-icon>
+            </div>
+            Fechar Caixa
+        </button>
+    </div>
+
+
+
+    <mat-card class="card" style="border-radius: 4px;">
+        <mat-toolbar class="toolbar">
+            {{balance.toolbarTitle}}
+            <mat-icon>{{balance.toolbarIcon}}</mat-icon>
+        </mat-toolbar>
+        <mat-card-content class="contentCard">
+            <div class="balance">
+                <span [ngClass]="{
+                    'homeBalanceValuePositive': balance.value >= 0,
+                    'homeBalanceValueNegative': balance.value < 0
+                  }" *ngIf="balance.value">{{ formatarValorMonetario(balance.value) }}</span>
+
+                <mat-icon class="iconUp" [ngClass]="{
+                    'iconUpPositive': balance.arrowType == 'up',
+                    'iconUpNegative': balance.arrowType == 'down',
+                    '': balance.arrowType == 'none'
+                }">{{balance.arrowType == 'up' ?
+                    'arrow_upward' : balance.arrowType == 'down' ? 'arrow_downward' : 'none'}}</mat-icon>
+            </div>
+        </mat-card-content>
+
+    </mat-card>
+</div>

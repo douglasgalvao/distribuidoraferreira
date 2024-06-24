@@ -1,0 +1,11 @@
+<div class="content">
+    <mat-card class="card" *ngFor="let dialogAction of dialogActions" (click)="dialogAction.action()">
+        <mat-card-content class="contentCard" matRipple>
+            <div class="homeAction">
+                <mat-icon class="homeActionIcon">{{dialogAction.icon}}</mat-icon>
+                <span class="homeActionTitle">{{dialogAction.title}}</span>
+            </div>
+            <div class="barLine"></div>
+        </mat-card-content>
+    </mat-card>
+</div>

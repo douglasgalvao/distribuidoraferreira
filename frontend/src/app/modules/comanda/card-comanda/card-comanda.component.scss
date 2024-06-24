@@ -1,0 +1,46 @@
+.card {
+    max-width: max-content;
+    min-width: 200px;
+    border-radius: 6px;
+}
+
+
+mat-toolbar {
+    padding: 0.15rem;
+    border-radius: 6px;
+    height: max-content;
+    background-color: yellow;
+    justify-content: center;
+}
+
+
+.content {
+    display: flex;
+    p {
+        font-family: 'Inter', sans-serif;
+        font-weight: 700;
+    }
+}
+
+.statusComanda {
+    font-size: medium;
+    font-weight: bold;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin: 1rem;
+}
+
+.statusComandaAberta {
+    color: #1acb1a;
+
+}
+
+.statusComandaFechada {
+    color: #cb3939;
+}
+
+.toolbarText {
+    font-size: medium;
+    font-weight: bold;
+}

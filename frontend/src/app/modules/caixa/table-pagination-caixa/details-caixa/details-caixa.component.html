@@ -1,0 +1,26 @@
+<mat-toolbar class="toolbarContent">
+    <div></div>
+    <mat-card-title class="title">Detalhes do Caixa - {{caixa.caixa_id}}</mat-card-title>
+    <div style="display: flex;" >
+        <mat-icon mat-dialog-close class="contentCloseDialog">close</mat-icon>
+    </div>
+</mat-toolbar>
+<mat-card class="content">
+    <mat-card-content>
+        <mat-dialog-content class="dialogContainer">
+            <mat-card>
+                <mat-card-content>
+                    <p class="pValueTable">Dinheiro: {{ formatarValorMonetario(caixaDetails.dinheiro) }}</p>
+                    <p class="pValueTable">Pix: {{ formatarValorMonetario(caixaDetails.pix) }}</p>
+                    <p class="pValueTable">Crédito: {{ formatarValorMonetario(caixaDetails.credito) }}</p>
+                    <p class="pValueTable">Débito: {{ formatarValorMonetario(caixaDetails.debito) }}</p>
+                    <p class="pValueTable">Conta Cliente: {{ formatarValorMonetario(caixaDetails.contaCliente) }}</p>
+                </mat-card-content>
+            </mat-card>
+        </mat-dialog-content>
+
+        <mat-dialog-actions class="actionsContainer">
+            <button class="close-button" mat-button (click)="closeDialog()">Fechar</button>
+        </mat-dialog-actions>
+    </mat-card-content>
+</mat-card>

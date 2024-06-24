@@ -1,0 +1,47 @@
+mat-card-content {
+//    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    // padding: 1rem;
+    // gap: 1rem;
+}
+mat-paginator{
+    //width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // margin: 1rem;
+}
+
+.filterProdutos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // padding: 1rem;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+// mat-card {
+//   
+// }
+
+
+mat-tab-group{
+    color: white;
+    background-color: transparent;
+
+
+    
+}
+
+mat-card{
+    background-color: transparent;
+    color: white;
+    margin: 1rem;
+    // width: 100%;
+}
+.custom-tab-group{
+    background-color: white;
+    color: white;
+}

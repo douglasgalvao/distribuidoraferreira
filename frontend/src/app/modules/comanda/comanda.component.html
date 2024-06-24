@@ -1,0 +1,4 @@
+<app-toolbar toolbarTitle="Comandas" [actions]="actions" style="text-align: center;"></app-toolbar>
+<div class="content" [@fadeIn]>
+    <app-card-comanda [comanda]="comanda" *ngFor="let comanda of comandas"></app-card-comanda>
+</div>

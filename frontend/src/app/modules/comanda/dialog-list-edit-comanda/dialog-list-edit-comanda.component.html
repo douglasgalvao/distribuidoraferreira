@@ -1,0 +1,33 @@
+<mat-toolbar class="toolbarContent">
+    <div></div>
+    <div class="titleComanda">
+        <mat-card-title class="title">Detalhes da Comanda - {{comandaDetails.id}}</mat-card-title>
+        <mat-card-subtitle class="subtitle">Cliente: {{comandaDetails.nomeCliente}}</mat-card-subtitle>
+    </div>
+    <div style="display: flex;">
+        <mat-icon mat-dialog-close class="contentCloseDialog">close</mat-icon>
+    </div>
+</mat-toolbar>
+
+<mat-card class="content">
+    <mat-card-content>
+        <mat-dialog-content class="dialogContainer">
+            <mat-card class="contentCard" *ngFor="let venda of comandaDetails.venda">
+
+                <div *ngFor="let movimentacao of venda.movimentacoes_estoque">
+                    <mat-card-content>
+                        <div class="imgCard">
+                            <img [src]="movimentacao.img" width="64px" height="64px" alt="Foto Produto">
+                        </div>
+                        <p style="font-weight: 500;">{{movimentacao.nome_produto}}</p>
+                        <p>Quantidade: {{movimentacao.quantidade}}</p>
+                        <p>Preço Unit: {{ formatarValorMonetario(movimentacao.preco_unitario) }}</p>
+                        <p>Subtotal: {{ formatarValorMonetario(movimentacao.valor) }}</p>
+                    </mat-card-content>
+                </div>
+
+            </mat-card>
+
+        </mat-dialog-content>
+    </mat-card-content>
+</mat-card>

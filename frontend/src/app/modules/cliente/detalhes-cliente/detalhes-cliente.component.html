@@ -1,0 +1,26 @@
+<div style="overflow-y: auto;">
+  <mat-toolbar class="toolbarContent">
+    <mat-card-title class="title">Detalhes do Cliente</mat-card-title>
+    <div style="display: flex;" class="contentCloseDialog">
+      <mat-icon mat-dialog-close>close</mat-icon>
+    </div>
+  </mat-toolbar>
+  <mat-divider></mat-divider>
+  <mat-card class="container">
+    <mat-card-content>
+      <form [formGroup]="clienteForm">
+        <mat-form-field appearance="fill" class="fields">
+          <mat-label>Nome do Cliente</mat-label>
+          <input matInput formControlName="nome_cliente" required readonly>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="fields">
+          <mat-label>Telefone</mat-label>
+          <input matInput formControlName="telefone" required mask="(00) 00000-0000" readonly>
+        </mat-form-field>
+      </form>
+
+      <mat-divider [inset]="true"></mat-divider>
+      <app-table-pagination-vendas-clientes [id_cliente]="cliente.id"></app-table-pagination-vendas-clientes>
+    </mat-card-content>
+  </mat-card>
+</div>

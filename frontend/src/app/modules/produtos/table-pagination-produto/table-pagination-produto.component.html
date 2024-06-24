@@ -1,0 +1,94 @@
+<mat-card>
+    <mat-card-content>
+        <mat-form-field>
+            <mat-label>Buscar Produto</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Pesquisar" #input>
+        </mat-form-field>
+
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef class="thValue"> ID </th>
+                <td mat-cell *matCellDef="let produto">
+                    <p class="tableValue">{{produto.id}}</p>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="nome">
+                <th mat-header-cell *matHeaderCellDef class="thValue"> Nome </th>
+                <td mat-cell *matCellDef="let produto">
+                    <p class="tableValue">{{produto.nome}}</p>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="img">
+                <th mat-header-cell *matHeaderCellDef class="thValue"> Imagem </th>
+                <td mat-cell *matCellDef="let produto">
+                    <p class="tableValue">
+                        <img class="imgProdutoTable" [src]="produto.img" alt="Image">
+                    </p>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="preco">
+                <th mat-header-cell *matHeaderCellDef class="thValue"> Preço </th>
+                <td mat-cell *matCellDef="let produto">
+                    <p class="tableValue">{{ formatarValorMonetario(produto.preco) }}</p>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="precoConsumo">
+                <th mat-header-cell *matHeaderCellDef class="thValue"> Preço Consumo</th>
+                <td mat-cell *matCellDef="let produto">
+                    <p class="tableValue">{{ formatarValorMonetario(produto.precoConsumo) }}</p>
+                </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="categoria">
+                <th mat-header-cell *matHeaderCellDef class="thValue"> Categoria </th>
+                <td mat-cell *matCellDef="let produto">
+                    <p class="tableValue">{{produto.categoria}}</p>
+                </td>
+            </ng-container>
+
+
+            <!-- <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef>{{column.toUpperCase()}}</th>
+                <td mat-cell *matCellDef="let produto">
+                    <ng-container *ngIf="column === 'preco'; else defaultColumn">
+                        {{produto[column] | currency:'BRL'}}
+                    </ng-container>
+                    <ng-template #defaultColumn>{{produto[column]}}</ng-template>
+                </td>
+            </ng-container> -->
+
+
+
+            <!-- Coluna de ação -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>{{columAction.toUpperCase()}}</th>
+                <td mat-cell class="actionsButtons" *matCellDef="let produto">
+                    <div style="display:flex;">
+                        <button class="editActionsProduto" (click)="openDialogEditProduto(produto)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button class="deleteActionsProdutos" (click)="openDialogDeleteProduto(produto)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </td>
+            </ng-container>
+
+            <!-- Definição de linhas e colunas -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns">
+            </tr>
+            <tr mat-row *matRowDef="let row; columns:displayedColumns">
+            </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Selecione a página">
+        </mat-paginator>
+    </mat-card-content>
+</mat-card>

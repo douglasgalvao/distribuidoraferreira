@@ -1,0 +1,25 @@
+<mat-drawer-container autosize>
+    <mat-drawer [opened]="isDrawerOpened" [mode]="mode" class="drawerLateral">
+        <mat-nav-list>
+            <mat-list-item *ngFor="let d of data">
+                <div class="containerItems">
+                    <div class="containerIcon">
+                        <mat-icon class="iconItem" [class.active]="d === selectedItem">{{d.iconName}}</mat-icon>
+                    </div>
+                    <div class="containerButton">
+                        <button class="buttonItem" [class.active]="d === selectedItem" mat-button
+                            [routerLink]="d.linkRouter" (click)="selectItem(d)">
+                            {{d.nome}}
+                        </button>
+                    </div>
+                </div>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-drawer>
+
+    <mat-drawer-content>
+        <div style="text-align: center; min-height: 100vh;">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>

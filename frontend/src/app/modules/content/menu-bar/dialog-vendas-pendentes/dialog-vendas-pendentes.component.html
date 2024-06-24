@@ -1,0 +1,29 @@
+<mat-toolbar class="toolbarContent">
+    <div></div>
+    <mat-card-title class="title">Vendas Pendentes</mat-card-title>
+    <div style="display: flex;" >
+        <mat-icon mat-dialog-close class="contentCloseDialog">close</mat-icon>
+    </div>
+</mat-toolbar>
+
+<mat-card class="content">
+    <mat-card-content>
+        <mat-dialog-content class="dialogContainer">
+            <mat-card class="contentCard" *ngFor="let data of vendasPendentes ">
+
+                <mat-card-content>
+                    <div class="contentInside">
+                        <p>ID: <span class="spanContent"> {{data.id}} </span></p>
+                        <p>Metodo Pagamento: <span class="spanContent"> {{data.metodo_pagamento}} </span></p>
+                        <p>Total: <span class="spanContent"> {{data.total_venda | currency:'BRL'}} </span></p>
+                        <p>Qtt Movimentações: <span class="spanContent"> {{data.movimentacoes_estoque.length}} </span></p>
+                        <p>Data: <span class="spanContent"> {{data.data_hora}} </span></p>
+                        <p>Status: <span class="spanContent"> {{data.status}} </span></p>
+                    </div>
+                </mat-card-content>
+
+            </mat-card>
+
+        </mat-dialog-content>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,33 @@
+mat-toolbar {
+    display: flex;
+    justify-content: center;
+    background-color: yellow;
+    color: #121212;
+}
+
+form {
+    // width: 100%;
+    padding: 1rem;
+}
+
+mat-form-field {
+    margin: 0.5rem;
+}
+
+.containerButtonsEditProduto {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+
+    .saveButton {
+        background-color: #1acb1a;
+        color: #fff;
+    }
+
+    .cancelButton {
+        background-color: #cb3939;
+        color: #fff;
+    }
+}
