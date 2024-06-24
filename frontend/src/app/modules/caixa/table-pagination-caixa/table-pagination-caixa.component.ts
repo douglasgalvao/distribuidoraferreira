@@ -63,6 +63,11 @@ export class TablePaginationCaixaComponent implements OnInit {
     return formatter.format(valor);
   }
 
+  formatarData(data: string): string {
+    const date = new Date(data);
+    return date.toLocaleDateString('pt-BR', { year: 'numeric', month: '2-digit', day: '2-digit' }) + ' ' +
+           date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+  }
 
   openDialogDetalhesCaixa(e: Caixa) {
     this.dialog.open(DetailsCaixaComponent,
@@ -83,11 +88,14 @@ export class TablePaginationCaixaComponent implements OnInit {
 
   getCaixas() {
     this.caixaService.getCaixas().subscribe((caixas) => {
+      caixas.entity.forEach((e: Caixa) => {
+        e.data_hora = this.formatarData(e.data_hora);
+      });
       this.caixasData = caixas.entity;
       this.dataSource = new MatTableDataSource(this.caixasData);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    })
+    });
   }
 
   ngOnInit(): void {
