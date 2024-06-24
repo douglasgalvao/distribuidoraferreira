@@ -130,7 +130,7 @@ export class DialogNovoProdutoComponent implements OnInit, AfterViewInit, OnChan
     );
 
     this.form.get('codBarras')?.valueChanges.subscribe(value => {
-      if (value.length === 13) {
+      if (value.length >= 11) {
         this.verificarProduto(value);
       }
     });
