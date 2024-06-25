@@ -1,0 +1,2 @@
+- Este repositório estará publico até o momento de deploy para produção, fique avontade para observar!
+- Esta aplicação foi desenvolvida com Angular 16 sem intenções prévias de atualizações futuras de versão
