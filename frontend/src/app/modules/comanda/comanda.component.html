@@ -1,5 +1,8 @@
 <app-toolbar toolbarTitle="Comandas" [actions]="actions" style="text-align: center;"></app-toolbar>
-<mat-spinner *ngIf="isLoading"></mat-spinner>
+
+<div style="width: 100%; display: flex; justify-content: center; height: 100%; align-items: center;">
+    <mat-spinner *ngIf="isLoading" style="color:yellow"></mat-spinner>
+</div>
 <div class="content" [@fadeIn] *ngIf="isLoaded">
     <app-card-comanda [comanda]="comanda" *ngFor="let comanda of comandas"></app-card-comanda>
 </div>
