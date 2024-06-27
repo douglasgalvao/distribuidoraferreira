@@ -22,7 +22,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   ]
 })
 
-export class ComandaComponent implements OnInit, AfterViewInit {
+export class ComandaComponent implements OnInit {
 
 
   isLoaded!: boolean;
