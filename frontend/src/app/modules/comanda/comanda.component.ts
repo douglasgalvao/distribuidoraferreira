@@ -25,6 +25,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ComandaComponent implements OnInit, AfterViewInit {
 
 
+  isLoaded!: boolean;
+
   constructor(
     private comandasService: ComandasService,
     private clienteService: ClienteService,
@@ -60,6 +62,7 @@ export class ComandaComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
+    this.isLoaded = false;
     this.obterComandas();
     this.notificationService.comandaCriada$.subscribe(() => this.obterComandas());
     this.notificationService.comandaAlterada$.subscribe(() => this.obterComandas());
@@ -76,6 +79,7 @@ export class ComandaComponent implements OnInit, AfterViewInit {
             this.clienteService.obterClienteById(e.idCliente).subscribe(
               (response) => {
                 e.nomeCliente = response.entity.nome_cliente;
+                this.isLoaded = true;
                 this.cdr.detectChanges();
               }
             )
