@@ -1,4 +1,5 @@
 <app-toolbar toolbarTitle="Comandas" [actions]="actions" style="text-align: center;"></app-toolbar>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
 <div class="content" [@fadeIn] *ngIf="isLoaded">
     <app-card-comanda [comanda]="comanda" *ngFor="let comanda of comandas"></app-card-comanda>
 </div>

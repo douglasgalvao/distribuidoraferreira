@@ -26,6 +26,7 @@ export class ComandaComponent implements OnInit {
 
 
   isLoaded!: boolean;
+  isLoading!: boolean;
 
   constructor(
     private comandasService: ComandasService,
@@ -62,7 +63,6 @@ export class ComandaComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.isLoaded = false;
     this.obterComandas();
     this.notificationService.comandaCriada$.subscribe(() => this.obterComandas());
     this.notificationService.comandaAlterada$.subscribe(() => this.obterComandas());
@@ -71,6 +71,8 @@ export class ComandaComponent implements OnInit {
 
 
   obterComandas() {
+    this.isLoaded = false;
+    this.isLoading = !this.isLoaded;
     this.comandasService.getComanda().subscribe(
       (response) => {
         this.comandas = response.entity;
@@ -80,6 +82,7 @@ export class ComandaComponent implements OnInit {
               (response) => {
                 e.nomeCliente = response.entity.nome_cliente;
                 this.isLoaded = true;
+                this.isLoading = !this.isLoaded;
                 this.cdr.detectChanges();
               }
             )
