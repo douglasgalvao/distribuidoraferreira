@@ -81,14 +81,12 @@ export class ComandaComponent implements OnInit {
             this.clienteService.obterClienteById(e.idCliente).subscribe(
               (response) => {
                 e.nomeCliente = response.entity.nome_cliente;
-                
                 this.cdr.detectChanges();
               }
-            )
-          }
+            )}
         )
-        this.isLoaded = true;
         this.isLoading = !this.isLoaded;
+        this.isLoaded = true;
       },
       (error) => {
         console.log(error);
