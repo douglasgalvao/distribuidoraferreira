@@ -7,6 +7,7 @@ import { ComandasService } from 'src/app/service/comandas/comandas.service';
 import { NotificationService } from 'src/app/service/notifications/notifications.service';
 import { DialogCreateComandaComponent } from './dialog-create-comanda/dialog-create-comanda.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-comanda',
