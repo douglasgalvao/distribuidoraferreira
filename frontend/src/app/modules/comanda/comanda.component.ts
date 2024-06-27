@@ -65,7 +65,7 @@ export class ComandaComponent implements OnInit {
   ngOnInit(): void {
     this.obterComandas();
     this.notificationService.comandaCriada$.subscribe(() => this.obterComandas());
-    this.notificationService.comandaAlterada$.subscribe(() => this.obterComandas());
+    // this.notificationService.comandaAlterada$.subscribe(() => this.obterComandas());
     this.notificationService.comandaFinalizada$.subscribe(() => this.obterComandas());
   }
 
