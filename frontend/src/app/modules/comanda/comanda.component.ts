@@ -73,24 +73,51 @@ export class ComandaComponent implements OnInit {
   obterComandas() {
     this.isLoaded = false;
     this.isLoading = !this.isLoaded;
+
     this.comandasService.getComanda().subscribe(
       (response) => {
         this.comandas = response.entity;
-        this.comandas.forEach(
-          e => {
-            this.clienteService.obterClienteById(e.idCliente).subscribe(
-              (response) => {
-                e.nomeCliente = response.entity.nome_cliente;
-                this.cdr.detectChanges();
-              }
-            )}
-        )
-        this.isLoading = !this.isLoaded;
-        this.isLoaded = true;
+    
+        const observables = this.comandas.map(comanda => 
+          this.clienteService.obterClienteById(comanda.idCliente).pipe(
+            tap(response => {
+              comanda.nomeCliente = response.entity.nome_cliente;
+            })
+          )
+        );
+    
+        forkJoin(observables).subscribe(() => {
+          this.isLoaded = true;
+          this.isLoading = !this.isLoaded;
+          this.cdr.detectChanges();
+        });
       },
       (error) => {
         console.log(error);
       }
-    )
+    );
+    
+    
+    // this.comandasService.getComanda().subscribe(
+    //   (response) => {
+    //     this.comandas = response.entity;
+    //     this.comandas.forEach(
+    //       e => {
+    //         this.clienteService.obterClienteById(e.idCliente).subscribe(
+    //           (response) => {
+    //             e.nomeCliente = response.entity.nome_cliente;
+                
+    //             this.cdr.detectChanges();
+    //           }
+    //         )
+    //       }
+    //     )
+    //     this.isLoaded = true;
+    //     this.isLoading = !this.isLoaded;
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // )
   }
 }
