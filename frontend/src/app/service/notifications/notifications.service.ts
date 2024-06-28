@@ -37,6 +37,9 @@ export class NotificationService {
 
   private contaPagaSource = new Subject<Boolean>();
 
+  private loaded_balance = new Subject<Boolean>();
+  private loaded_table_pagination_caixa = new Subject<Boolean>();
+
 
   produtoCriado$ = this.produtoCriadoSource.asObservable();
   produtoDeletado$ = this.produtoDeletadoSource.asObservable();
@@ -64,6 +67,10 @@ export class NotificationService {
   clienteCriado$ = this.clienteCriadoSource.asObservable();
 
   contaPaga$ = this.contaPagaSource.asObservable();
+
+  loadedBalance$ = this.loaded_balance.asObservable();
+  loadedTablePaginationCaixa$ = this.loaded_table_pagination_caixa.asObservable();
+
 
   constructor() { }
 
@@ -126,4 +133,20 @@ export class NotificationService {
   notificarComandaFinalizada() {
     this.comandaFinalizadaSource.next(true);
   }
+
+  notificarEstoqueRemovido(produtoId: number) {
+    this.estoqueRemovidoSource.next(produtoId);
+  }
+
+  notificarLoadedBalance() {
+    this.loaded_balance.next(true);
+    this.loaded_balance.complete();
+  }
+
+  notificarLoadedTablePaginationCaixa() {
+    this.loaded_table_pagination_caixa.next(true);
+    this.loaded_table_pagination_caixa.complete();
+  }
+  
+
 }

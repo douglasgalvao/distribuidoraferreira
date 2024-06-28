@@ -1,5 +1,7 @@
 <div [@fadeIn]>
     <app-toolbar [toolbarTitle]="toolbarTitle"></app-toolbar>
-    <app-balance></app-balance>
-    <app-table-pagination-caixa></app-table-pagination-caixa>
+    <app-spinner-default [isLoading]="isLoading"></app-spinner-default>
+    <app-balance [balance]="balance" [caixaAberto]="caixaAberto" [caixaID]="caixaID" *ngIf="isLoaded"></app-balance>
+    <app-table-pagination-caixa [caixasData]="caixasData" [dataSource]="dataSource"
+        *ngIf="isLoaded"></app-table-pagination-caixa>
 </div>

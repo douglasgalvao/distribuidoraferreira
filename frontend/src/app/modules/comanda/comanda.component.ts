@@ -98,28 +98,5 @@ export class ComandaComponent implements OnInit {
         console.log(error);
       }
     );
-    
-    
-    // this.comandasService.getComanda().subscribe(
-    //   (response) => {
-    //     this.comandas = response.entity;
-    //     this.comandas.forEach(
-    //       e => {
-    //         this.clienteService.obterClienteById(e.idCliente).subscribe(
-    //           (response) => {
-    //             e.nomeCliente = response.entity.nome_cliente;
-                
-    //             this.cdr.detectChanges();
-    //           }
-    //         )
-    //       }
-    //     )
-    //     this.isLoaded = true;
-    //     this.isLoading = !this.isLoaded;
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   }
-    // )
   }
 }

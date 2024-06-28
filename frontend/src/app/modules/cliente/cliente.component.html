@@ -1,6 +1,7 @@
 <div [@fadeIn]>
     <app-toolbar [actions]="actions" [toolbarTitle]="toolbarTitle"></app-toolbar>
-    <app-balance></app-balance>
-    <app-table-pagination-clientes></app-table-pagination-clientes>
+    <app-spinner-default [isLoading]="isLoading"></app-spinner-default>
+    <app-balance *ngIf="isLoaded" [balance]="balance"></app-balance>
+    <app-table-pagination-clientes *ngIf="isLoaded" [data]="data"
+        [dataSource]="dataSource"></app-table-pagination-clientes>
 </div>
-

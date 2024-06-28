@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Balance, caixaRequest, caixaResponse } from 'src/app/models/models';
 import { DialogSetValorInitCaixaComponent } from '../dialog-set-valor-init-caixa/dialog-set-valor-init-caixa.component';
 import { Action } from 'rxjs/internal/scheduler/Action';
@@ -7,6 +7,7 @@ import { CaixaService } from 'src/app/service/caixa/caixa.service';
 import { DialogSetCloseCaixaComponent } from '../dialog-set-close-caixa/dialog-set-close-caixa.component';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { NotificationService } from 'src/app/service/notifications/notifications.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-balance',
@@ -48,70 +49,17 @@ export class BalanceComponent implements OnInit {
     },
   }]
 
-  balance: Balance = {
-    toolbarTitle: 'Faturamento Diário',
-    toolbarIcon: 'wallet',
-    value: 0.0,
-    currency: 'BRL',
-    arrowType: 'none',
-    isCurrency: false
-  }
-
-
-  caixaAberto!: boolean;
-  caixaID!: number;
+  @Input() balance: Balance = { toolbarTitle: 'Faturamento Diário', toolbarIcon: 'wallet', value: 0.0, currency: 'BRL', arrowType: 'none', isCurrency: false }
+  @Input() caixaAberto!: boolean;
+  @Input() caixaID!: number;
 
   constructor(
-    private dialog: MatDialog,
-    private caixaService: CaixaService,
-    private notification: NotificationService
+    private dialog: MatDialog
   ) { }
 
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
 
-    this.caixaService.verificarCaixa().subscribe(res => {
-      this.caixaAberto = res.entity
-    })
-
-    this.caixaService.getCaixa().subscribe(res => {
-      const entity = res.entity ?? {};
-      const faturamentoDia = entity.faturamento_dia ?? 0.0;
-
-      this.balance.value = faturamentoDia;
-      if(this.balance.value == 0.0){
-        this.balance.arrowType = 'none';
-      }else{
-        this.balance.arrowType = faturamentoDia > 0 ? 'up' : 'down';
-      }
-      
-    });
-
-
-    this.caixaService.getCaixaID().subscribe(res => {
-      this.caixaID = res.entity;
-    })
-
-    this.notification.caixaAlterado$.subscribe(() => {
-
-      this.caixaService.verificarCaixa().subscribe(res => {
-        this.caixaAberto = res.entity
-      })
-
-      this.caixaService.getCaixaID().subscribe(res => {
-        this.caixaID = res.entity;
-      })
-
-      this.caixaService.getCaixa().subscribe(res => {
-        const entity = res.entity ?? {};
-        const faturamentoDia = entity.faturamento_dia ?? 0.0;
-
-        this.balance.value = faturamentoDia;
-        this.balance.arrowType = faturamentoDia > 0 ? 'up' : 'down';
-      });
-    })
-
-  }
 
   formatarValorMonetario(valor: number): string {
     const formatter = new Intl.NumberFormat('pt-BR', {
@@ -121,7 +69,7 @@ export class BalanceComponent implements OnInit {
 
     return formatter.format(valor);
   }
-  
+
 }
 
 

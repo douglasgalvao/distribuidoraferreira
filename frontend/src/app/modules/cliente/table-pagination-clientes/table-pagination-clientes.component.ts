@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -19,8 +19,8 @@ import { AlterarInfosClienteComponent } from '../dialog-alterar-infos-cliente/di
 export class TablePaginationClientesComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nome_cliente', 'telefone', 'saldo_devedor', 'status', 'detalhes'];
   columAction: string = 'Actions';
-  data!: ClienteResponse[];
-  dataSource!: MatTableDataSource<ClienteResponse>;
+  @Input() data!: ClienteResponse[];
+  @Input() dataSource!: MatTableDataSource<ClienteResponse>;
   isMobile = false
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -91,9 +91,8 @@ export class TablePaginationClientesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.obterClientes();
-    this.notificationService.clienteCriado$.subscribe(cliente => this.obterClientes());
 
+    this.notificationService.clienteCriado$.subscribe(cliente => this.obterClientes());
     this.notificationService.contaPaga$.subscribe(e => this.obterClientes());
 
 
@@ -102,11 +101,7 @@ export class TablePaginationClientesComponent implements OnInit {
   }
 
   private obterClientes() {
-    this.clienteService.obterClientes().subscribe(e => {
-      this.data = e.entity;
-      this.dataSource = new MatTableDataSource(this.data);
-      this.dataSource.paginator = this.paginator;
-    });
+    this.dataSource.paginator = this.paginator;
   }
 
   private renderAccordingScreen() {

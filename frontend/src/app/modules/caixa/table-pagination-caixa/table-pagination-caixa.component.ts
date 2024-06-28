@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -9,6 +9,7 @@ import { CaixaService } from 'src/app/service/caixa/caixa.service';
 import { ClienteService } from 'src/app/service/cliente/cliente.service';
 import { NotificationService } from 'src/app/service/notifications/notifications.service';
 import { DetailsCaixaComponent } from './details-caixa/details-caixa.component';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-table-pagination-caixa',
@@ -19,9 +20,9 @@ import { DetailsCaixaComponent } from './details-caixa/details-caixa.component';
 export class TablePaginationCaixaComponent implements OnInit {
   displayedColumns: string[] = ['id', 'data_hora', 'status', 'valor_inicial', 'faturamento_dia', 'valor_total', 'detalhes'];
   columAction: string = 'Actions';
-  caixasData!: Caixa[];
-  dataSource!: MatTableDataSource<Caixa>;
-  isMobile = false
+  @Input() caixasData!: Caixa[];
+  @Input() dataSource!: MatTableDataSource<Caixa>;
+  isMobile = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -66,7 +67,7 @@ export class TablePaginationCaixaComponent implements OnInit {
   formatarData(data: string): string {
     const date = new Date(data);
     return date.toLocaleDateString('pt-BR', { year: 'numeric', month: '2-digit', day: '2-digit' }) + ' ' +
-           date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+      date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
   }
 
   openDialogDetalhesCaixa(e: Caixa) {
@@ -86,25 +87,13 @@ export class TablePaginationCaixaComponent implements OnInit {
     this.renderAccordingScreen();
   }
 
-  getCaixas() {
-    this.caixaService.getCaixas().subscribe((caixas) => {
-      caixas.entity.forEach((e: Caixa) => {
-        e.data_hora = this.formatarData(e.data_hora);
-      });
-      this.caixasData = caixas.entity;
-      this.dataSource = new MatTableDataSource(this.caixasData);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    });
-  }
 
   ngOnInit(): void {
-    this.getCaixas();
-
-    this.notificationService.caixaAlterado$.subscribe(() => this.getCaixas())
-
-    this.renderAccordingScreen();
-
+    this.notificationService.caixaAlterado$.subscribe(() => {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.renderAccordingScreen();
+    });
   }
 
   private renderAccordingScreen() {
