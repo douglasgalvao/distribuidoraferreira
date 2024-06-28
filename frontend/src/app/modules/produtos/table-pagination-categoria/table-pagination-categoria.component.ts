@@ -1,5 +1,5 @@
 import { CategoriaElement, CategoriaElementRequest, ProdutoElement, ProdutoElementRequest } from '../../../models/models';
-import { Component, ViewChild, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -20,9 +20,9 @@ import { DialogDeleteCategoriaComponent } from '../dialog-delete-categoria/dialo
 export class TableCategoriasProdutosComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nome'];
   columAction: string = 'Actions';
-  categorias: CategoriaElement[] = [];
-  categoriasRequest: CategoriaElementRequest[] = [];
-  dataSource!: MatTableDataSource<CategoriaElement>;
+  @Input() categorias: CategoriaElement[] = [];
+  @Input() categoriasRequest: CategoriaElementRequest[] = [];
+  @Input() dataSource!: MatTableDataSource<CategoriaElement>;
 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -67,24 +67,8 @@ export class TableCategoriasProdutosComponent implements OnInit {
 
 
   updateTable() {
-    this.categorias = [];
-    this.categoriaService.obterCategorias().subscribe(
-      data => {
-        this.categorias = data.entity as CategoriaElement[];
-        this.categorias = this.categorias.map(categoria => {
-          return {
-            id: categoria.id,
-            nome: categoria.nome.toUpperCase()
-          };
-        });
-
-
-        this.dataSource = new MatTableDataSource<CategoriaElement>(this.categorias);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      },
-      error => console.error('Erro ao obter Categorias:', error)
-    );
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
 

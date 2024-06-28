@@ -1,5 +1,5 @@
 import { ProdutoElement, ProdutoElementRequest } from '../../../models/models';
-import { Component, ViewChild, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, ViewChild, OnInit, Output, EventEmitter, HostListener, Input } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -23,9 +23,9 @@ import { DrawerService } from 'src/app/service/drawer/drawer.service';
 export class TableProdutosCategoriasComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nome', 'preco', 'precoConsumo', 'categoria'];
   columAction: string = 'Editar';
-  produtos: ProdutoElement[] = [];
-  produtosRequest: ProdutoElementRequest[] = [];
-  dataSource!: MatTableDataSource<ProdutoElementRequest>;
+  @Input() produtos: ProdutoElement[] = [];
+  @Input() produtosRequest: ProdutoElementRequest[] = [];
+  @Input() dataSource!: MatTableDataSource<ProdutoElementRequest>;
   isMobile: boolean = false;
   isMobileMinimo: boolean = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -114,28 +114,8 @@ export class TableProdutosCategoriasComponent implements OnInit {
 
 
   updateTable() {
-    this.produtos = [];
-    this.produtosService.getProdutos().subscribe(
-      data => {
-        this.produtos = data.entity;
-        this.produtosRequest = data.entity.map(produto => {
-          return {
-            id: produto.id,
-            nome: produto.nome,
-            preco: produto.preco,
-            precoConsumo: produto.precoConsumo,
-            subTotal: produto.subTotal,
-            img: produto.img,
-            imgID: produto.imgID,
-            categoria: produto.categoria.nome.toUpperCase()
-          };
-        });
-        this.dataSource = new MatTableDataSource<ProdutoElementRequest>(this.produtosRequest);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      },
-      error => console.error('Erro ao obter vendas:', error)
-    );
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
 

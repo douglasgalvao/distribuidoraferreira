@@ -33,23 +33,27 @@ export class EstoqueComponent implements OnInit {
     }
   ];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  isLoaded!: boolean;
+  isLoading!: boolean;
 
 
   constructor(private produtoService: ProdutoService, private notificationService: NotificationService) { }
   ngOnInit(): void {
+
+    this.isLoaded = false;
+    this.isLoading = !this.isLoaded;
 
     forkJoin({
       produtos: this.produtoService.getProdutos(),
     }).subscribe(({ produtos }) => {
       this.produtos = produtos.entity;
       this.produtosFiltrados = produtos.entity;
+      this.isLoaded = true;
+      this.isLoading = !this.isLoaded;
     })
-
-    this.notificationService.estoqueAdicionado$.subscribe(estoque => {
-      const index = this.produtos.findIndex(produto => produto.id === estoque.id);
-    });
-
-
+    // this.notificationService.estoqueAdicionado$.subscribe(estoque => {
+    //   const index = this.produtos.findIndex(produto => produto.id === estoque.id);
+    // });
   }
 
 

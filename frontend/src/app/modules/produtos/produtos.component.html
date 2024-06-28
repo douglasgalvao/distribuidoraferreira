@@ -1,13 +1,16 @@
 <div [@fadeIn]>
     <app-toolbar [actions]="actions" [toolbarTitle]="toolbarTitle"></app-toolbar>
-    <mat-card>
+    <app-spinner-default [isLoading]="isLoading"></app-spinner-default>
+    <mat-card *ngIf="isLoaded">
         <mat-card-content>
             <mat-tab-group class="custom-tab-group" color="accent">
                 <mat-tab label="Produtos">
-                    <app-table-pagination-produto></app-table-pagination-produto>
+                    <app-table-pagination-produto [dataSource]="dataSourceProduto" [produtos]="produtos"
+                        [produtosRequest]="produtosRequest"></app-table-pagination-produto>
                 </mat-tab>
                 <mat-tab label="Categorias">
-                    <app-table-pagination-categoria></app-table-pagination-categoria>
+                    <app-table-pagination-categoria [categorias]="categorias" [categoriasRequest]="categoriasRequest"
+                        [dataSource]="dataSourceCategoria"></app-table-pagination-categoria>
                 </mat-tab>
             </mat-tab-group>
         </mat-card-content>

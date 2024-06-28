@@ -1,24 +1,25 @@
 <div [@fadeIn]>
 
-<app-toolbar [actions]="actions" [@fadeIn] [toolbarTitle]="toolbarTitle"></app-toolbar>
+    <app-toolbar [actions]="actions" [@fadeIn] [toolbarTitle]="toolbarTitle"></app-toolbar>
 
-<mat-card [@fadeIn]>
-    <mat-form-field class="filterProdutos">
-        <mat-label>Buscar Produto</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Pesquisar" #input>
-    </mat-form-field>
-    
-    <mat-card-content>
-        <app-produto-estoque
-            *ngFor="let produto of produtosFiltrados | slice:(paginator.pageIndex * paginator.pageSize):((paginator.pageIndex + 1) * paginator.pageSize)"
-            [produto]="produto"></app-produto-estoque>
-    </mat-card-content>
-    
-    <mat-paginator #paginator [length]="produtosFiltrados.length" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"
-        showFirstLastButtons>
-    
-    </mat-paginator>
+    <app-spinner-default [isLoading]="isLoading"></app-spinner-default>
+    <mat-card [@fadeIn] *ngIf="isLoaded">
+        <mat-form-field class="filterProdutos">
+            <mat-label>Buscar Produto</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Pesquisar" #input>
+        </mat-form-field>
 
-</mat-card>
+        <mat-card-content>
+            <app-produto-estoque
+                *ngFor="let produto of produtosFiltrados | slice:(paginator.pageIndex * paginator.pageSize):((paginator.pageIndex + 1) * paginator.pageSize)"
+                [produto]="produto"></app-produto-estoque>
+        </mat-card-content>
+
+        <mat-paginator #paginator [length]="produtosFiltrados.length" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"
+            showFirstLastButtons>
+
+        </mat-paginator>
+
+    </mat-card>
 
 </div>
