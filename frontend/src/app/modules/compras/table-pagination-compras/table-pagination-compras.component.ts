@@ -1,6 +1,6 @@
 import { ComprasService } from './../../../service/compras/compras.service';
 import { Compra, Compras } from './../../../models/models';
-import { Component, ViewChild, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, ViewChild, OnInit, Output, EventEmitter, HostListener, Input } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -17,8 +17,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class TableComprasComponent implements OnInit {
   displayedColumns: string[] = ['id', 'dataEHora', 'totalCompra', 'metodoPagamento', 'detalhes'];
   columAction: string = 'Actions';
-  comprasData!: Compras[];
-  dataSource!: MatTableDataSource<Compras>;
+  @Input() comprasData!: Compras[];
+  @Input() dataSource!: MatTableDataSource<Compras>;
   isMobile = false
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -84,7 +84,7 @@ export class TableComprasComponent implements OnInit {
 
     this.notificationService.compraCriada$.subscribe(
       compra => {
-        if(compra){
+        if (compra) {
           this._snackBar.open('Compra cadastrada com sucesso!', 'Fechar', {
             duration: 3000,
             horizontalPosition: 'center',
@@ -92,7 +92,7 @@ export class TableComprasComponent implements OnInit {
           });
           this.obterCompras();
           this.dataSource.paginator = this.paginator;
-        }else {
+        } else {
           this._snackBar.open('Compra não cadastrada!', 'Fechar', {
             duration: 3000,
             horizontalPosition: 'center',
@@ -106,16 +106,8 @@ export class TableComprasComponent implements OnInit {
 
   }
 
-  private obterCompras(){
-    this.comprasService.obterCompras().subscribe(e => {
-      this.comprasData = e.entity;
-      this.comprasData.forEach((compra) => {
-        compra.data_hora = new Date(compra.data_hora).toLocaleDateString('pt-BR', { year: 'numeric', month: '2-digit', day: '2-digit' }) + ' ' + new Date(compra.data_hora).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-      })
-      this.dataSource = new MatTableDataSource(this.comprasData);
-
-      this.dataSource.paginator = this.paginator;
-    });
+  private obterCompras() {
+    this.dataSource.paginator = this.paginator;
   }
 
 

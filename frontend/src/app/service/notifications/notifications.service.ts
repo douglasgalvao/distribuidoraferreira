@@ -1,5 +1,6 @@
 // notification.service.ts
 import { Injectable } from '@angular/core';
+import { MatTableDataSource, MatTableDataSourcePaginator } from '@angular/material/table';
 import { Subject } from 'rxjs';
 import { ProdutoElement, MovimentacoesEstoque, Compras, Cliente } from 'src/app/models/models';
 
@@ -37,8 +38,8 @@ export class NotificationService {
 
   private contaPagaSource = new Subject<Boolean>();
 
-  private loaded_balance = new Subject<Boolean>();
-  private loaded_table_pagination_caixa = new Subject<Boolean>();
+  // private movimentacoes_table_loaded = new Subject<MatTableDataSource<MovimentacoesEstoque, MatTableDataSourcePaginator>>();
+  // private loaded_table_pagination_caixa = new Subject<Boolean>();
 
 
   produtoCriado$ = this.produtoCriadoSource.asObservable();
@@ -68,8 +69,8 @@ export class NotificationService {
 
   contaPaga$ = this.contaPagaSource.asObservable();
 
-  loadedBalance$ = this.loaded_balance.asObservable();
-  loadedTablePaginationCaixa$ = this.loaded_table_pagination_caixa.asObservable();
+  // movimentacoes_table_loaded$ = this.movimentacoes_table_loaded.asObservable();
+  // loadedTablePaginationCaixa$ = this.loaded_table_pagination_caixa.asObservable();
 
 
   constructor() { }
@@ -138,15 +139,7 @@ export class NotificationService {
     this.estoqueRemovidoSource.next(produtoId);
   }
 
-  notificarLoadedBalance() {
-    this.loaded_balance.next(true);
-    this.loaded_balance.complete();
-  }
 
-  notificarLoadedTablePaginationCaixa() {
-    this.loaded_table_pagination_caixa.next(true);
-    this.loaded_table_pagination_caixa.complete();
-  }
-  
+
 
 }

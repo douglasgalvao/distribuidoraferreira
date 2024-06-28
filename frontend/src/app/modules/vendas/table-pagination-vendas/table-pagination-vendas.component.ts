@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, ViewChild } from '@angular/core';
+import { Component, HostListener, Input, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -14,11 +14,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './table-pagination-vendas.component.html',
   styleUrls: ['./table-pagination-vendas.component.scss']
 })
-export class TablePaginationVendasComponent {
+export class TablePaginationVendasComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'dataEHora', 'totalVenda', 'metodoPagamento', 'status', 'detalhes'];
   columAction: string = 'Actions';
-  vendasData!: Vendas[];
-  dataSource!: MatTableDataSource<Vendas>;
+  @Input() vendasData!: Vendas[];
+  @Input() dataSource!: MatTableDataSource<Vendas>;
   @Input() isCaixa!: boolean;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -31,6 +31,7 @@ export class TablePaginationVendasComponent {
   ) {
 
   }
+
 
   formatarValorMonetario(valor: number): string {
     const formatter = new Intl.NumberFormat('pt-BR', {
@@ -77,60 +78,19 @@ export class TablePaginationVendasComponent {
     )
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.obterVendas();
+  }
 
-    if (this.isCaixa) {
-      this.vendasService.obterVendasOrderByDataHora().subscribe(e => {
-        this.vendasData = e.entity;
-        this.vendasData.forEach((venda) => {
-          venda.data_hora = new Date(venda.data_hora).toLocaleDateString('pt-BR', { year: 'numeric', month: '2-digit', day: '2-digit' }) + ' ' + new Date(venda.data_hora).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-        })
-        this.dataSource = new MatTableDataSource(this.vendasData);
-      });
-    } else {
-      this.vendasService.obterVendas().subscribe(e => {
-        this.vendasData = e.entity;
-        this.vendasData.forEach((venda) => {
-          venda.data_hora = new Date(venda.data_hora).toLocaleDateString('pt-BR', { year: 'numeric', month: '2-digit', day: '2-digit' }) + ' ' + new Date(venda.data_hora).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-        })
-        this.dataSource = new MatTableDataSource(this.vendasData);
-      });
-    }
-
-
-    this.notificationService.vendaCriada$.subscribe(venda => {
-      if (venda) {
-        this._snackBar.open('Venda cadastrada com sucesso!', 'Fechar', {
-          duration: 3000,
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
-        this.obterVendas();
-        this.dataSource.paginator = this.paginator;
-      } else {
-        this._snackBar.open('Venda não cadastrada!', 'Fechar', {
-          duration: 3000,
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
-      }
-    });
+  ngOnInit(): void {
     this.renderAccordingScreen();
-
+    this.notificationService.vendaCriada$.subscribe(() => {
+      this.obterVendas();
+    })
   }
 
   private obterVendas() {
-    this.vendasService.obterVendas().subscribe(e => {
-      
-      this.vendasData = e.entity;
-      this.vendasData.forEach((venda) => {
-        venda.data_hora = new Date(venda.data_hora).toLocaleDateString('pt-BR', { year: 'numeric', month: '2-digit', day: '2-digit' }) + ' ' + new Date(venda.data_hora).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-      })
-      this.dataSource = new MatTableDataSource(this.vendasData);
-
-      this.dataSource.paginator = this.paginator;
-    });
+    this.dataSource.paginator = this.paginator;
   }
 
   @HostListener('window:resize', ['$event'])

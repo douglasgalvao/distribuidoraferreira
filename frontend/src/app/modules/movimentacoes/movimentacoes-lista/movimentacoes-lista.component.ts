@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostListener, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MovimentacoesEstoque } from 'src/app/models/models';
 import { MovimentacoesService } from 'src/app/service/movimentacoes/movimentacoes.service';
@@ -12,16 +12,18 @@ import { DrawerService } from 'src/app/service/drawer/drawer.service';
   templateUrl: './movimentacoes-lista.component.html',
   styleUrls: ['./movimentacoes-lista.component.scss']
 })
-export class MovimentacoesListaComponent implements OnInit {
+export class MovimentacoesListaComponent implements OnInit, AfterViewInit {
 
   @Input() movimentacoes: MovimentacoesEstoque[] = [];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  dataSource = new MatTableDataSource<MovimentacoesEstoque>();
+  @Input() dataSource!: MatTableDataSource<MovimentacoesEstoque>;
   displayedColumns: string[] = ['id', 'horarioRegistro', 'tipo', 'quantidade', 'totalMovimentacao', 'produto', 'observacao'];
 
   constructor(private movimentacaoService: MovimentacoesService, private notificationService: NotificationService, private drawerService: DrawerService) {
   }
+
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
@@ -58,25 +60,23 @@ export class MovimentacoesListaComponent implements OnInit {
 
 
   updateTable() {
-    this.movimentacaoService.getMovimentacoes().subscribe(
-      movimentacoes => {
-        movimentacoes.entity.forEach(e => e.horario_registro = new Date(e.horario_registro).toLocaleDateString('pt-BR', { year: 'numeric', month: '2-digit', day: '2-digit' }) + ' ' + new Date(e.horario_registro).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }));
-        this.movimentacoes = movimentacoes.entity
-        this.dataSource = new MatTableDataSource(this.movimentacoes);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      }
-    );
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
+
+
+  ngAfterViewInit(): void {
+    this.updateTable();
   }
 
   ngOnInit(): void {
+
 
     this.notificationService.movimentacaoCriada$.subscribe(() => {
       this.updateTable();
     });
 
 
-    this.updateTable();
     this.renderAccordingScreen();
   }
 

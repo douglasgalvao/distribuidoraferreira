@@ -94,6 +94,7 @@ export class TablePaginationCaixaComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.renderAccordingScreen();
     });
+    this.renderAccordingScreen();
   }
 
   private renderAccordingScreen() {

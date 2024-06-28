@@ -1,9 +1,9 @@
 <mat-card>
     <mat-card-content>
-    <mat-form-field>
-        <mat-label>Buscar Movimentação</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Pesquisar" #input>
-    </mat-form-field>
+        <mat-form-field>
+            <mat-label>Buscar Movimentação</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Pesquisar" #input>
+        </mat-form-field>
         <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
             <!-- Definição das colunas -->
             <ng-container matColumnDef="id">
@@ -72,7 +72,7 @@
             </tr>
         </table>
 
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+        <mat-paginator [pageSizeOptions]="[3, 10, 20]" showFirstLastButtons
             aria-label="Selecione a página"></mat-paginator>
     </mat-card-content>
 </mat-card>

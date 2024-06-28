@@ -1,4 +1,4 @@
-<div [@fadeIn]>
-    <app-toolbar [actions]="actions"  [toolbarTitle]="toolbarTitle"></app-toolbar>
-    <app-table-pagination-compras></app-table-pagination-compras>
-</div>
+<app-toolbar [@fadeIn] [actions]="actions" [toolbarTitle]="toolbarTitle"></app-toolbar>
+<app-spinner-default [@fadeIn] [isLoading]="isLoading"></app-spinner-default>
+<app-table-pagination-compras [@fadeIn] *ngIf="isLoaded" [comprasData]="comprasData"
+    [dataSource]="dataSource"></app-table-pagination-compras>

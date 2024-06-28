@@ -1,2 +1,4 @@
-<app-toolbar [toolbarTitle]="toolbarTitle" [actions]="actions"></app-toolbar>
-<app-table-pagination-vendas></app-table-pagination-vendas>
+<app-toolbar [@fadeIn] [toolbarTitle]="toolbarTitle" [actions]="actions"></app-toolbar>
+<app-spinner-default [@fadeIn] [isLoading]="isLoading"></app-spinner-default>
+<app-table-pagination-vendas [@fadeIn] *ngIf="isLoaded" [dataSource]="dataSource" [isCaixa]="isCaixa"
+    [vendasData]="vendasData"></app-table-pagination-vendas>

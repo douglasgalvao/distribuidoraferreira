@@ -1,6 +1,7 @@
 <div [@fadeIn]>
     <app-toolbar [toolbarTitle]="toolbarTitle" [actions]="actions"></app-toolbar>
+    <app-spinner-default [isLoading]="isLoading"></app-spinner-default>
     <mat-card>
-        <app-movimentacoes-lista></app-movimentacoes-lista>
+        <app-movimentacoes-lista [dataSource]="dataSource" [movimentacoes]="movimentacoes" *ngIf="isLoaded"></app-movimentacoes-lista>
     </mat-card>
 </div>

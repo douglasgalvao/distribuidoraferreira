@@ -4,6 +4,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { ProdutoElement } from '../../models/models';
 import { NotificationService } from '../../service/notifications/notifications.service';
 import { MatPaginator } from '@angular/material/paginator';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-estoque',
@@ -37,12 +38,12 @@ export class EstoqueComponent implements OnInit {
   constructor(private produtoService: ProdutoService, private notificationService: NotificationService) { }
   ngOnInit(): void {
 
-    this.produtoService.getProdutos().subscribe(
-      produtos => {
-        this.produtos = produtos.entity;
-        this.produtosFiltrados = produtos.entity;
-      }
-    );
+    forkJoin({
+      produtos: this.produtoService.getProdutos(),
+    }).subscribe(({ produtos }) => {
+      this.produtos = produtos.entity;
+      this.produtosFiltrados = produtos.entity;
+    })
 
     this.notificationService.estoqueAdicionado$.subscribe(estoque => {
       const index = this.produtos.findIndex(produto => produto.id === estoque.id);
