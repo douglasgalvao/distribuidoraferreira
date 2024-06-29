@@ -64,7 +64,7 @@ export class DialogAddItemComandaComponent implements OnInit {
 
 
     this.form.controls['codBarras'].valueChanges.pipe(
-      debounceTime(300)
+      debounceTime(100)
     ).subscribe((e) => {
       if (e.length >= 8) {
         this.produtoService.getProdutoByCodBarras(e).subscribe((produto) => {
