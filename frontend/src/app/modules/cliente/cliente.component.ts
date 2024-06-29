@@ -122,6 +122,17 @@ export class ClienteComponent implements OnInit {
         this.isLoaded = true;
         this.isLoading = !this.isLoaded;
       });
+
+      this.clienteService.obterClientes().subscribe(res => {
+        if (!res.entity) {
+          this.data = [];
+        } else {
+          this.data = res.entity;
+          this.dataSource = new MatTableDataSource(this.data);
+        }
+
+      })
+
     });
 
     this.notificationService.clienteCriado$.subscribe(e => {

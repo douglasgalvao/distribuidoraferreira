@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { MatTableDataSource, MatTableDataSourcePaginator } from '@angular/material/table';
 import { Subject } from 'rxjs';
-import { ProdutoElement, MovimentacoesEstoque, Compras, Cliente } from 'src/app/models/models';
+import { ProdutoElement, MovimentacoesEstoque, Compras, Cliente, ClienteResponse } from 'src/app/models/models';
 
 @Injectable({
   providedIn: 'root',
@@ -36,7 +36,7 @@ export class NotificationService {
 
   private comandaFinalizadaSource = new Subject<Boolean>();
 
-  private contaPagaSource = new Subject<Boolean>();
+  private contaPagaSource = new Subject<number>();
 
   // private movimentacoes_table_loaded = new Subject<MatTableDataSource<MovimentacoesEstoque, MatTableDataSourcePaginator>>();
   // private loaded_table_pagination_caixa = new Subject<Boolean>();
@@ -119,8 +119,8 @@ export class NotificationService {
     this.clienteCriadoSource.next(true);
   }
 
-  notificarContaPaga() {
-    this.contaPagaSource.next(true);
+  notificarContaPaga(idCliente: number) {
+    this.contaPagaSource.next(idCliente);
   }
 
   notificarComandaCriada() {

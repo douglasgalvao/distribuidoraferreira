@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostListener, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -16,7 +16,7 @@ import { DialogConfirmarPagamentoComponent } from './dialog-confirmar-pagamento/
   templateUrl: './table-pagination-vendas-clientes.component.html',
   styleUrls: ['./table-pagination-vendas-clientes.component.scss']
 })
-export class TablePaginationVendasClientesComponent implements OnInit {
+export class TablePaginationVendasClientesComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'data_hora', 'total_venda', 'total_pago', 'status', 'detalhes'];
   columAction: string = 'Actions';
   vendasData!: VendaResponse[];
@@ -31,6 +31,9 @@ export class TablePaginationVendasClientesComponent implements OnInit {
     private vendaService: VendasService,
     private dialog: MatDialog,
     private _snackBar: MatSnackBar) {
+
+  }
+  ngAfterViewInit(): void {
 
   }
 
@@ -68,9 +71,12 @@ export class TablePaginationVendasClientesComponent implements OnInit {
     this.obterClienteById(this.id_cliente)
     this.idCliente = this.id_cliente;
 
-    console.log(this.id_cliente, this.idCliente)
-
-    this.notificationService.contaPaga$.subscribe(e => this.obterClienteById(this.id_cliente));
+    this.notificationService.contaPaga$.subscribe((id) => {
+      console.log("ANEM")
+      // this.obterClienteById(id);
+      // this.id_cliente = id;
+      // this.idCliente = id;
+    });
 
     this.renderAccordingScreen();
   }

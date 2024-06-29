@@ -1,8 +1,9 @@
 import { trigger, transition, style, animate } from '@angular/animations';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ClienteResponse } from 'src/app/models/models';
 import { ClienteService } from 'src/app/service/cliente/cliente.service';
 import { NotificationService } from 'src/app/service/notifications/notifications.service';
 
@@ -24,7 +25,7 @@ export class DialogConfirmarPagamentoComponent implements OnInit {
   valor!: number;
   idVenda!: number;
   vendas: any = []
-  id_cliente!: Number;
+  id_cliente!: number;
   metodosPagamento: any[] = [
     { id: 'DINHEIRO', nome: 'DINHEIRO' },
     { id: 'PIX', nome: 'PIX' },
@@ -43,13 +44,11 @@ export class DialogConfirmarPagamentoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
+
     this.vendas = this.venda;
     this.valor = this.vendas[0].total_venda;
     this.idVenda = this.vendas[0].id;
     this.id_cliente = this.vendas[1];
-
-    console.log(this.venda)
 
     this.form = this.fb.group({
       total_venda: [(this.venda[0].total_venda - this.venda[0].total_pago), Validators.required],
@@ -66,14 +65,14 @@ export class DialogConfirmarPagamentoComponent implements OnInit {
 
     let total_venda_number = parseFloat(total_venda);
 
+
     this.clienteService.pagarContaCliente(this.id_cliente, this.idVenda, total_venda_number, this.form.controls['metodoComanda'].value).subscribe(e => {
-      
-      this.notificationService.notificarContaPaga();
       this.matSnack.open(e.entity, 'Fechar', {
         duration: 3000,
         horizontalPosition: 'center',
         verticalPosition: 'top',
       });
+      this.notificationService.notificarContaPaga(this.id_cliente);
       this.dialogRef.close();
     },
       (error) => {
