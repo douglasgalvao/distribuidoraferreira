@@ -1,5 +1,5 @@
 import { ProdutoElement, ProdutoElementRequest } from '../../../models/models';
-import { Component, ViewChild, OnInit, Output, EventEmitter, HostListener, Input } from '@angular/core';
+import { Component, ViewChild, OnInit, Output, EventEmitter, HostListener, Input, AfterViewInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -20,7 +20,7 @@ import { DrawerService } from 'src/app/service/drawer/drawer.service';
   templateUrl: './table-pagination-produto.component.html',
   styleUrls: ['./table-pagination-produto.component.scss']
 })
-export class TableProdutosCategoriasComponent implements OnInit {
+export class TableProdutosCategoriasComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'nome', 'preco', 'precoConsumo', 'categoria'];
   columAction: string = 'Editar';
   @Input() produtos: ProdutoElement[] = [];
@@ -33,6 +33,30 @@ export class TableProdutosCategoriasComponent implements OnInit {
   constructor(private produtosService: ProdutoService, private notificationService: NotificationService,
     private dialog: MatDialog, private breakpointObserver: BreakpointObserver, private drawer: DrawerService) {
 
+  }
+
+
+  ngAfterViewInit(): void {
+    this.updateTable();
+  }
+
+  ngOnInit(): void {
+
+    this.notificationService.produtoCriado$.subscribe(
+      produto => {
+        this.produtos.push(produto);
+        this.updateTable();
+      }
+    );
+
+    this.notificationService.produtoDeletado$.subscribe(
+      produtoId => {
+        this.produtos = this.produtos.filter(produto => produto.id !== produtoId);
+        this.updateTableByDelete(this.produtos);
+      }
+    );
+
+    this.renderAccordingScreen();
   }
 
 
@@ -137,25 +161,7 @@ export class TableProdutosCategoriasComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  ngOnInit(): void {
 
-    this.notificationService.produtoCriado$.subscribe(
-      produto => {
-        this.produtos.push(produto);
-        this.updateTable();
-      }
-    );
-
-    this.notificationService.produtoDeletado$.subscribe(
-      produtoId => {
-        this.produtos = this.produtos.filter(produto => produto.id !== produtoId);
-        this.updateTableByDelete(this.produtos);
-      }
-    );
-
-    this.updateTable();
-    this.renderAccordingScreen();
-  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
