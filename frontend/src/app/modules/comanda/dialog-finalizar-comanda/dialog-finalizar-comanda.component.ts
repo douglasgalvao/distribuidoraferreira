@@ -72,6 +72,8 @@ export class DialogFinalizarComandaComponent implements OnInit {
         this.vendasDaComanda.find((e: { status: string; }) => e.status == 'PENDENTE') ? this.vendasConcluidas = false : this.vendasConcluidas = true;
       })
     })
+
+    this.renderAccordingScreen();
   }
 
   @HostListener('window:resize', ['$event'])
