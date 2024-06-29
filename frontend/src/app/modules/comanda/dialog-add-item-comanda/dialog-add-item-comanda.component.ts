@@ -66,7 +66,7 @@ export class DialogAddItemComandaComponent implements OnInit {
     this.form.controls['codBarras'].valueChanges.pipe(
       debounceTime(300)
     ).subscribe((e) => {
-      if (e.length >= 11) {
+      if (e.length >= 8) {
         this.produtoService.getProdutoByCodBarras(e).subscribe((produto) => {
           if (produto.status === 200) {
             let produtoSelecionado = this.produtosDaComanda.find(p => p.produto.id === produto.entity.id);
