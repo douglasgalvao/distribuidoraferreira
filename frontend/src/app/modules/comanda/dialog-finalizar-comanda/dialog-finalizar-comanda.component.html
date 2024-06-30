@@ -3,7 +3,6 @@
 </mat-toolbar>
 <mat-card class="cardTablePagination">
     <mat-card-content>
-
         <div style="display: flex; justify-content: center;">
             <p class="descriptionComanda">Detalhes da comanda do(a) {{nomeCliente}}</p>
         </div>
@@ -54,7 +53,7 @@
 
 
             <ng-container matColumnDef="detalhes">
-                <th mat-header-cell *matHeaderCellDef class="thCell">Detalhes</th>
+                <th mat-header-cell *matHeaderCellDef class="thCell">Ação</th>
                 <td mat-cell class="detailsButton" *matCellDef="let venda">
                     <div class="pValueTable">
                         <button class="detalhesProduto" (click)="openDialogDetalhesVenda(venda)">
@@ -78,7 +77,10 @@
 
         <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
             aria-label="Selecione a página"></mat-paginator>
+
     </mat-card-content>
+
+
 </mat-card>
 
 <div mat-dialog-actions class="actionsButtons">

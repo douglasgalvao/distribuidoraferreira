@@ -84,7 +84,7 @@ export class DialogFinalizarComandaComponent implements OnInit {
   private renderAccordingScreen() {
     let screenSize = window.innerWidth;
     if (screenSize < 500) {
-      this.displayedColumns = ['total_venda', 'total_pago', 'status', 'detalhes'];
+      this.displayedColumns = ['total_venda', 'status', 'detalhes'];
     } else if (screenSize >= 500 && screenSize < 800) {
       this.displayedColumns = ['data_hora', 'total_venda', 'total_pago', 'status', 'detalhes'];
     } else if (screenSize >= 800) {

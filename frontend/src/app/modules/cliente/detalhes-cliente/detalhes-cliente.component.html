@@ -5,8 +5,9 @@
       <mat-icon mat-dialog-close>close</mat-icon>
     </div>
   </mat-toolbar>
+  <app-spinner-default [isLoading]="isLoading"></app-spinner-default>
   <mat-divider></mat-divider>
-  <mat-card class="container">
+  <mat-card class="container" *ngIf="isLoaded">
     <mat-card-content>
       <form [formGroup]="clienteForm">
         <mat-form-field appearance="fill" class="fields">
@@ -20,7 +21,8 @@
       </form>
 
       <mat-divider [inset]="true"></mat-divider>
-      <app-table-pagination-vendas-clientes [id_cliente]="cliente.id"></app-table-pagination-vendas-clientes>
+      <app-table-pagination-vendas-clientes [id_cliente]="cliente.id" [dataSource]="dataSource"
+        [vendasData]="vendasData"></app-table-pagination-vendas-clientes>
     </mat-card-content>
   </mat-card>
 </div>

@@ -19,8 +19,8 @@ import { DialogConfirmarPagamentoComponent } from './dialog-confirmar-pagamento/
 export class TablePaginationVendasClientesComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'data_hora', 'total_venda', 'total_pago', 'status', 'detalhes'];
   columAction: string = 'Actions';
-  vendasData!: VendaResponse[];
-  dataSource!: MatTableDataSource<VendaResponse>;
+  @Input() vendasData!: VendaResponse[];
+  @Input() dataSource!: MatTableDataSource<VendaResponse>;
   isMobile = false;
   idCliente!: Number;
   @Input() id_cliente!: number
@@ -34,7 +34,14 @@ export class TablePaginationVendasClientesComponent implements OnInit, AfterView
 
   }
   ngAfterViewInit(): void {
+    this.obterClienteById();
+  }
 
+  ngOnInit(): void {
+
+    this.idCliente = this.id_cliente;
+
+    this.renderAccordingScreen();
   }
 
   applyFilter(event: Event) {
@@ -67,19 +74,7 @@ export class TablePaginationVendasClientesComponent implements OnInit, AfterView
     this.renderAccordingScreen();
   }
 
-  ngOnInit(): void {
-    this.obterClienteById(this.id_cliente)
-    this.idCliente = this.id_cliente;
 
-    this.notificationService.contaPaga$.subscribe((id) => {
-      console.log("ANEM")
-      // this.obterClienteById(id);
-      // this.id_cliente = id;
-      // this.idCliente = id;
-    });
-
-    this.renderAccordingScreen();
-  }
 
   formatarValorMonetario(valor: number): string {
     const formatter = new Intl.NumberFormat('pt-BR', {
@@ -90,16 +85,8 @@ export class TablePaginationVendasClientesComponent implements OnInit, AfterView
     return formatter.format(valor);
   }
 
-  private obterClienteById(id: Number) {
-    this.clienteService.obterVendasCliente(id).subscribe(e => {
-      this.vendasData = e.entity;
-      this.vendasData.forEach((venda) => {
-        venda.data_hora = new Date(venda.data_hora).toLocaleDateString('pt-BR', { year: 'numeric', month: '2-digit', day: '2-digit' }) + ' ' + new Date(venda.data_hora).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-      })
-      this.dataSource = new MatTableDataSource(this.vendasData);
-
-      this.dataSource.paginator = this.paginator;
-    });
+  private obterClienteById() {
+    this.dataSource.paginator = this.paginator;
   }
 
   openDialogDetalhesVenda(e: Venda) {
