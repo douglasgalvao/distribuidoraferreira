@@ -75,12 +75,7 @@ export class ProdutosComponent implements OnInit, AfterViewInit {
   ) { }
 
 
-  ngAfterViewInit(): void {}
-
-
-  ngOnInit(): void {
-
-
+  ngAfterViewInit(): void {
     this.isLoaded = false;
     this.isLoading = !this.isLoaded;
     forkJoin({
@@ -114,6 +109,14 @@ export class ProdutosComponent implements OnInit, AfterViewInit {
       this.isLoaded = true;
       this.isLoading = !this.isLoaded;
     });
+
+  }
+
+
+  ngOnInit(): void {
+
+
+
 
     this.notificationService.produtoCriado$.subscribe(
       produto => {

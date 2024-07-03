@@ -15,10 +15,10 @@
             </ng-container>
 
             <ng-container matColumnDef="data_hora">
-                <th mat-header-cell *matHeaderCellDef class="thCell">DataHora</th>
+                <th mat-header-cell *matHeaderCellDef class="thCell">Data Hora</th>
                 <td mat-cell *matCellDef="let caixa">
                     <p class="pValueTable">
-                        {{caixa.data_hora}}</p>
+                        {{formatarData(caixa.data_hora)}}</p>
                 </td>
             </ng-container>
 
@@ -55,7 +55,7 @@
             </ng-container>
 
             <ng-container matColumnDef="detalhes">
-                <th mat-header-cell *matHeaderCellDef class="thCell">Detalhes</th>
+                <th mat-header-cell *matHeaderCellDef class="thCell">Ação</th>
                 <td mat-cell class="actionsButtons" *matCellDef="let caixa">
                     <div class="pValueTable">
                         <button class="detalhesCliente" (click)="openDialogDetalhesCaixa(caixa)">
