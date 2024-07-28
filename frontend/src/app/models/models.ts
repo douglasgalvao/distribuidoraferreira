@@ -285,12 +285,6 @@ export interface MovimentacaoEstoqueComanda {
 
 
 
-
-
-
-
-
-
 export interface MovimentacoesEstoqueRequest {
   produto: number,
   tipo: string,

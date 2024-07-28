@@ -1,7 +1,7 @@
 <mat-toolbar class="toolbarContent">
     <div></div>
     <mat-card-title class="title">Cadastrar Produto</mat-card-title>
-    <div style="display: flex;" >
+    <div style="display: flex;">
         <mat-icon mat-dialog-close class="contentCloseDialog">close</mat-icon>
     </div>
 </mat-toolbar>
@@ -11,16 +11,7 @@
             <form [formGroup]="form" class="formContainer">
 
                 <div class="file-uploadedContent">
-                    <div class="file-uploaded" *ngIf="existsPhoto">
-                        <mat-card>
-                            <mat-card-content class="photoContent">
-                                <img [src]="photoImgUrlAPI" class="fotoProduto" />
-                            </mat-card-content>
-                            <span>Nome: {{nomeProdutoAPI}}</span>
-                        </mat-card>
-                    </div>
-                    <div class="file-upload" [class.foto-selecionada]="fotoSelecionada"
-                        *ngIf="!photoImgUrlAPI.length && !existsPhoto">
+                    <div class="file-upload" [class.foto-selecionada]="fotoSelecionada" *ngIf="!photoImgUrlAPI.length">
                         <label for="file-input" class="upload-label">
                             <mat-icon>cloud_upload</mat-icon>
                             <span *ngIf="!fotoSelecionada">Clique para fazer o upload<br>ou arraste e solte aqui</span>
@@ -36,6 +27,8 @@
                     <input matInput type="text" formControlName="codBarras" (input)="onInput($event)" #codBarrasElement
                         required>
                 </mat-form-field>
+
+
 
 
                 <div style="display: flex; gap:1rem">
@@ -62,7 +55,8 @@
 
                     <mat-form-field appearance="fill" class="hide-spinner-buttons">
                         <mat-label>Preço de Consumo</mat-label>
-                        <input matInput type="text" (input)="onInputPoint($event)" formControlName="precoConsumo" required>
+                        <input matInput type="text" (input)="onInputPoint($event)" formControlName="precoConsumo"
+                            required>
                     </mat-form-field>
                 </div>
             </form>
@@ -81,7 +75,8 @@
             <!--
             <button mat-icon-button [disabled]="!this.form.valid" (click)="verificarProduto()">
                 <mat-icon>refresh</mat-icon>
-            </button> -->
+            </button> 
+            -->
         </mat-dialog-actions>
 
     </mat-card-content>

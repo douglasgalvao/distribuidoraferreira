@@ -27,7 +27,6 @@ declare var page: any
 export class DialogNovoProdutoComponent implements OnInit, AfterViewInit, OnChanges {
   gerarCodBarras: boolean = false;
   form!: FormGroup;
-  existsPhoto: boolean = false;
   photoImgUrlAPI: string = '';
   nomeProdutoAPI: string = '';
   callAPIRequested: boolean = false;
@@ -38,6 +37,7 @@ export class DialogNovoProdutoComponent implements OnInit, AfterViewInit, OnChan
   produtoJaVerificada: boolean = false;
   produtoModificada: boolean = false;
   _verifyIfProductExists: boolean = false;
+
   @ViewChild('codBarrasElement') codBarrasInput!: ElementRef<HTMLInputElement>;
 
 
@@ -180,6 +180,28 @@ export class DialogNovoProdutoComponent implements OnInit, AfterViewInit, OnChan
             verticalPosition: 'top',
           });
           this.dialogRef.close(produto);
+        }
+      );
+    } else {
+      this.produtoService.salvarImagemProduto(this.fotoProduto!).subscribe(
+        res => {
+          produto.preco = parseFloat(produto.preco.toString().replace(',', '.'));
+          produto.precoConsumo = parseFloat(produto.precoConsumo.toString().replace(',', '.'));
+          produto.img = res.entity.img;
+          produto.imgID = res.entity.imgID;
+          produto.codBarras = this.form.get('codBarras')?.value;
+          // produto.quantidadeEstoque = this.form.value.estoqueInicial;
+          this.produtoService.cadastrarNovoProduto(produto).subscribe(
+            produto => {
+              this.notificationService.notificarProdutoCriado(produto);
+              this._snackBar.open('Produto cadastrado com sucesso!', 'Fechar', {
+                duration: 3000,
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              });
+              this.dialogRef.close(produto);
+            }
+          );
         }
       );
     }
