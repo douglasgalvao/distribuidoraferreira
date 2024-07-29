@@ -15,7 +15,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class DialogEditProdutoComponent implements OnInit {
 
 
-
+  isLoaded!: boolean;
+  isLoading!: boolean;
   categorias: CategoriaElement[] = [];
   existsPhoto: boolean = false;
   fotoSelecionada: boolean = false;
@@ -38,7 +39,6 @@ export class DialogEditProdutoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     this.categoriaService.obterCategorias().subscribe((res) => {
       this.categorias = res.entity;
       let categoria = this.categorias.find(e => (e.nome.toUpperCase() == this.data.categoria.toUpperCase()));
@@ -86,6 +86,8 @@ export class DialogEditProdutoComponent implements OnInit {
   }
 
   saveProductEdited(e: any) {
+    this.isLoaded = false;
+    this.isLoading = !this.isLoaded;
     if (this.fotoSelecionada) {
       this.produtoService.salvarImagemProduto(this.fotoProduto!).subscribe(
         res => {
@@ -103,6 +105,8 @@ export class DialogEditProdutoComponent implements OnInit {
                 horizontalPosition: 'center',
                 verticalPosition: 'top',
               });
+              this.isLoaded = true;
+              this.isLoading = !this.isLoaded;
               this.dialogRef.close();
             }
           );
@@ -122,6 +126,8 @@ export class DialogEditProdutoComponent implements OnInit {
             horizontalPosition: 'center',
             verticalPosition: 'top',
           });
+          this.isLoaded = true;
+          this.isLoading = !this.isLoaded;
           this.dialogRef.close();
         }
       );

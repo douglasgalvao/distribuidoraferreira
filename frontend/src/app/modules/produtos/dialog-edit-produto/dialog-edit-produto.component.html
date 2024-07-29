@@ -3,6 +3,7 @@
     <span class="spacer"></span>
 </mat-toolbar>
 <mat-card>
+    <app-spinner-default [isLoading]="isLoading"></app-spinner-default>
     <mat-card-content>
         <form [formGroup]="form" id="formEditProduto">
 
@@ -18,7 +19,8 @@
                     <input type="file" id="file-input" (change)="salvarFotoAtual($event)">
                 </div>
                 <div class="atualFotoProduto">
-                    <img src={{produto.img}} alt="" width="72px" height="72px" *ngIf="!fotoSelecionada && produto.img.length">
+                    <img src={{produto.img}} alt="" width="72px" height="72px"
+                        *ngIf="!fotoSelecionada && produto.img.length">
                 </div>
             </div>
 
@@ -30,7 +32,7 @@
 
                 <mat-form-field appearance="fill">
                     <mat-label>Preço Venda</mat-label>
-                    <input matInput formControlName="preco"  (input)="onInputPoint($event)" required>
+                    <input matInput formControlName="preco" (input)="onInputPoint($event)" required>
                 </mat-form-field>
             </div>
             <div>
