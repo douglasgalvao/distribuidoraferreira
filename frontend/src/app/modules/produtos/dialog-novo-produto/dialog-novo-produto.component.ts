@@ -105,6 +105,7 @@ export class DialogNovoProdutoComponent implements OnInit, AfterViewInit, OnChan
     const integerPart = value.slice(0, -2);
     const fractionalPart = value.slice(-2);
 
+
     return parseFloat(integerPart + '.' + fractionalPart);
   }
 
@@ -151,7 +152,6 @@ export class DialogNovoProdutoComponent implements OnInit, AfterViewInit, OnChan
           produto.img = res.entity.img;
           produto.imgID = res.entity.imgID;
           produto.codBarras = this.form.get('codBarras')?.value;
-          // produto.quantidadeEstoque = this.form.value.estoqueInicial;
           this.produtoService.cadastrarNovoProduto(produto).subscribe(
             produto => {
               this.notificationService.notificarProdutoCriado(produto);
@@ -169,8 +169,8 @@ export class DialogNovoProdutoComponent implements OnInit, AfterViewInit, OnChan
       produto.preco = parseFloat(produto.preco.toString().replace(',', '.'));
       produto.precoConsumo = parseFloat(produto.precoConsumo.toString().replace(',', '.'));
       produto.img = this.photoImgUrlAPI;
+      produto.imgID = '';
       produto.codBarras = this.form.get('codBarras')?.value;
-      produto.estoque = this.form.value.estoqueInicial;
       this.produtoService.cadastrarNovoProduto(produto).subscribe(
         produto => {
           this.notificationService.notificarProdutoCriado(produto);
@@ -183,25 +183,20 @@ export class DialogNovoProdutoComponent implements OnInit, AfterViewInit, OnChan
         }
       );
     } else {
-      this.produtoService.salvarImagemProduto(this.fotoProduto!).subscribe(
-        res => {
-          produto.preco = parseFloat(produto.preco.toString().replace(',', '.'));
-          produto.precoConsumo = parseFloat(produto.precoConsumo.toString().replace(',', '.'));
-          produto.img = res.entity.img;
-          produto.imgID = res.entity.imgID;
-          produto.codBarras = this.form.get('codBarras')?.value;
-          // produto.quantidadeEstoque = this.form.value.estoqueInicial;
-          this.produtoService.cadastrarNovoProduto(produto).subscribe(
-            produto => {
-              this.notificationService.notificarProdutoCriado(produto);
-              this._snackBar.open('Produto cadastrado com sucesso!', 'Fechar', {
-                duration: 3000,
-                horizontalPosition: 'center',
-                verticalPosition: 'top',
-              });
-              this.dialogRef.close(produto);
-            }
-          );
+      produto.preco = parseFloat(produto.preco.toString().replace(',', '.'));
+      produto.precoConsumo = parseFloat(produto.precoConsumo.toString().replace(',', '.'));
+      produto.img = '../../../../assets/img/no_image.png';
+      produto.imgID = '';
+      produto.codBarras = this.form.get('codBarras')?.value;
+      this.produtoService.cadastrarNovoProduto(produto).subscribe(
+        produto => {
+          this.notificationService.notificarProdutoCriado(produto);
+          this._snackBar.open('Produto cadastrado com sucesso!', 'Fechar', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+          this.dialogRef.close(produto);
         }
       );
     }

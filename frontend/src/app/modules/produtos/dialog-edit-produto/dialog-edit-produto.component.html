@@ -6,29 +6,48 @@
     <mat-card-content>
         <form [formGroup]="form" id="formEditProduto">
 
-            <mat-form-field appearance="fill">
-                <mat-label>Nome do Produto</mat-label>
-                <input matInput formControlName="nome" required>
-            </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label>Preço Venda</mat-label>
-                <input matInput formControlName="preco" required>
-            </mat-form-field>
+            <div class="file-uploadedContent">
+                <div class="file-upload">
+                    <label for="file-input" class="upload-label">
+                        <mat-icon>cloud_upload</mat-icon>
+                        <span *ngIf="!fotoSelecionada">Clique para fazer o upload<br>ou arraste e
+                            solte aqui</span>
+                        <span *ngIf="fotoSelecionada">Nova Foto Selecionada!<br> </span>
+                    </label>
+                    <input type="file" id="file-input" (change)="salvarFotoAtual($event)">
+                </div>
+                <div class="atualFotoProduto">
+                    <img src={{produto.img}} alt="" width="72px" height="72px" *ngIf="!fotoSelecionada && produto.img.length">
+                </div>
+            </div>
 
-            <mat-form-field appearance="fill">
-                <mat-label>Preço Consumo</mat-label>
-                <input matInput formControlName="precoConsumo" required>
-            </mat-form-field>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Nome do Produto</mat-label>
+                    <input matInput formControlName="nome" required>
+                </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label>Categoria</mat-label>
-                <mat-select formControlName="categoria" required>
-                    <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">
-                        {{categoria.nome}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Preço Venda</mat-label>
+                    <input matInput formControlName="preco"  (input)="onInputPoint($event)" required>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Preço Consumo</mat-label>
+                    <input matInput formControlName="precoConsumo" (input)="onInputPoint($event)" required>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Categoria</mat-label>
+                    <mat-select formControlName="categoria" required>
+                        <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">
+                            {{categoria.nome}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
         </form>
 
         <div class="containerButtonsEditProduto">

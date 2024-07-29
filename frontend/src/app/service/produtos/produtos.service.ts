@@ -1,4 +1,4 @@
-import { BasicResponse, ProdutoElement } from 'src/app/models/models';
+import { BasicResponse, ProdutoElement, ProdutoElementRequest } from 'src/app/models/models';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
@@ -124,15 +124,14 @@ export class ProdutoService {
   }
 
 
-  atualizarProduto(produto: ProdutoElement): Observable<ProdutoElement> {
-    return this.http.put<ProdutoElement>(this.apiUrl + '/produtos', {
+  atualizarProduto(produto: ProdutoElementRequest): Observable<ProdutoElementRequest> {
+    return this.http.put<ProdutoElementRequest>(this.apiUrl + '/produtos/' + produto.id, {
       id: produto.id,
       nome: produto.nome,
       categoria: produto.categoria,
       preco: produto.preco,
       precoConsumo: produto.precoConsumo,
       img: produto.img,
-      codBarras: produto.codBarras
     }, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

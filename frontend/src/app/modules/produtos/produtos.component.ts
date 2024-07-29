@@ -30,7 +30,7 @@ import { CategoriaService } from 'src/app/service/categorias/categorias.service'
 
 
 
-export class ProdutosComponent implements OnInit, AfterViewInit {
+export class ProdutosComponent implements OnInit {
 
 
   produtos: ProdutoElement[] = [];
@@ -75,7 +75,10 @@ export class ProdutosComponent implements OnInit, AfterViewInit {
   ) { }
 
 
-  ngAfterViewInit(): void {
+
+
+  ngOnInit(): void {
+
     this.isLoaded = false;
     this.isLoading = !this.isLoaded;
     forkJoin({
@@ -110,39 +113,34 @@ export class ProdutosComponent implements OnInit, AfterViewInit {
       this.isLoading = !this.isLoaded;
     });
 
-  }
-
-
-  ngOnInit(): void {
-
-
-
 
     this.notificationService.produtoCriado$.subscribe(
       produto => {
         this.produtos.push(produto);
-        this.ngAfterViewInit();
+        this.ngOnInit();
       }
     );
+
+    this.notificationService.produtoAtualizado$.subscribe(() => this.ngOnInit());
 
     this.notificationService.produtoDeletado$.subscribe(
       produtoId => {
         this.produtos = this.produtos.filter(produto => produto.id !== produtoId);
-        this.ngAfterViewInit();
+        this.ngOnInit();
       }
     );
 
     this.notificationService.categoriaCriada$.subscribe(
       categoria => {
         this.categorias.push(categoria);
-        this.ngAfterViewInit();
+        this.ngOnInit();
       }
     );
 
     this.notificationService.categoriaDeletada$.subscribe(
       categoriaId => {
         this.categorias = this.categorias.filter(categoria => categoria.id !== categoriaId);
-        this.ngAfterViewInit();
+        this.ngOnInit();
       }
     );
   }

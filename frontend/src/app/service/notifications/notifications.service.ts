@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { MatTableDataSource, MatTableDataSourcePaginator } from '@angular/material/table';
 import { Subject } from 'rxjs';
-import { ProdutoElement, MovimentacoesEstoque, Compras, Cliente, ClienteResponse } from 'src/app/models/models';
+import { ProdutoElement, MovimentacoesEstoque, Compras, Cliente, ClienteResponse, ProdutoElementRequest } from 'src/app/models/models';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +11,7 @@ export class NotificationService {
 
   private produtoDeletadoSource = new Subject<number>();
   private produtoCriadoSource = new Subject<ProdutoElement>();
+  private produtoAtualizadoSource = new Subject<ProdutoElementRequest>();
 
   private categoriaDeletadaSource = new Subject<number>();
   private categoriaCriadaSource = new Subject<ProdutoElement>();
@@ -43,6 +44,7 @@ export class NotificationService {
 
 
   produtoCriado$ = this.produtoCriadoSource.asObservable();
+  produtoAtualizado$ = this.produtoAtualizadoSource.asObservable();
   produtoDeletado$ = this.produtoDeletadoSource.asObservable();
 
   comandaCriada$ = this.comandaCriadaSource.asObservable();
@@ -81,6 +83,10 @@ export class NotificationService {
 
   notificarProdutoCriado(produto: ProdutoElement) {
     this.produtoCriadoSource.next(produto);
+  }
+
+  notificarProdutoAtualizado(produto: ProdutoElementRequest) {
+    this.produtoAtualizadoSource.next(produto);
   }
 
   notificarCategoriaDeletada(categoriaId: number) {
