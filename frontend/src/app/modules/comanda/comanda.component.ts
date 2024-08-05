@@ -79,23 +79,39 @@ export class ComandaComponent implements OnInit {
     this.comandasService.getComanda().subscribe(
       (response) => {
         this.comandas = response.entity;
-    
-        const observables = this.comandas.map(comanda => 
+
+        if (!this.comandas) {
+          this.snackBar.open('Não existe comandas registradas para esse caixa', 'OK', {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top'
+          });
+
+          this.isLoaded = true;
+          this.isLoading = !this.isLoaded;
+          return;
+        }
+
+        const observables = this.comandas.map(comanda =>
           this.clienteService.obterClienteById(comanda.idCliente).pipe(
             tap(response => {
               comanda.nomeCliente = response.entity.nome_cliente;
             })
           )
         );
-    
+
         forkJoin(observables).subscribe(() => {
           this.isLoaded = true;
           this.isLoading = !this.isLoaded;
           this.cdr.detectChanges();
         });
+
+
       },
       (error) => {
         console.log(error);
+        this.isLoaded = true;
+        this.isLoading = !this.isLoaded;
       }
     );
   }
