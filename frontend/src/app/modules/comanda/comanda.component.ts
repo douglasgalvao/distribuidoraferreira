@@ -80,7 +80,7 @@ export class ComandaComponent implements OnInit {
       (response) => {
         this.comandas = response.entity;
 
-        if (!this.comandas) {
+        if (!this.comandas || this.comandas.length === 0) {
           this.snackBar.open('Não existe comandas registradas para esse caixa', 'OK', {
             duration: 5000,
             horizontalPosition: 'center',
@@ -110,8 +110,6 @@ export class ComandaComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-        this.isLoaded = true;
-        this.isLoading = !this.isLoaded;
       }
     );
   }
