@@ -106,12 +106,13 @@ export class DialogEditProdutoComponent implements OnInit {
           this.produto.categoria = this.data.categoria;
           this.produtoService.atualizarProduto(this.produto).subscribe(
             res => {
+              this.notificationService.notificarProdutoAtualizado(res);
               this._snackBar.open('Produto atualizado com sucesso!', 'Fechar', {
                 duration: 3000,
                 horizontalPosition: 'center',
                 verticalPosition: 'top',
               });
-              this.notificationService.notificarProdutoAtualizado(res);
+              
               this.isLoaded = true;
               this.isLoading = !this.isLoaded;
               this.dialogRef.close();
@@ -127,12 +128,13 @@ export class DialogEditProdutoComponent implements OnInit {
 
       this.produtoService.atualizarProduto(this.produto).subscribe(
         res => {
+          this.notificationService.notificarProdutoAtualizado(res);
           this._snackBar.open('Produto atualizado com sucesso!', 'Fechar', {
             duration: 3000,
             horizontalPosition: 'center',
             verticalPosition: 'top',
           });
-          this.notificationService.notificarProdutoAtualizado(res);
+          
           this.isLoaded = true;
           this.isLoading = !this.isLoaded;
           this.dialogRef.close();
