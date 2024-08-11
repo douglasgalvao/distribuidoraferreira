@@ -94,7 +94,7 @@ export class DialogNovoProdutoComponent implements OnInit, AfterViewInit, OnChan
 
     return num.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
-  
+
   getValorMonetario(value: string): number {
     value = value.toString().replace(/[^\d]/g, '');
 
@@ -146,8 +146,8 @@ export class DialogNovoProdutoComponent implements OnInit, AfterViewInit, OnChan
     if (!this.photoImgUrlAPI.length && this.fotoSelecionada) {
       this.produtoService.salvarImagemProduto(this.fotoProduto!).subscribe(
         res => {
-          produto.preco = this.getValorMonetario(produto.preco.toString());
-          produto.precoConsumo = this.getValorMonetario(produto.precoConsumo.toString());
+          produto.preco = this.getValorMonetario(produto.preco as any);
+          produto.precoConsumo = this.getValorMonetario(produto.precoConsumo as any);
           produto.img = res.entity.img;
           produto.imgID = res.entity.imgID;
           produto.codBarras = this.form.get('codBarras')?.value;
