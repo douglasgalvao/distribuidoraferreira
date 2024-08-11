@@ -42,6 +42,14 @@
             </ng-container>
 
 
+            <ng-container matColumnDef="caixa">
+                <th mat-header-cell *matHeaderCellDef class="thCell">Caixa ID</th>
+                <td mat-cell *matCellDef="let venda">
+                    <p class="pValueTable">
+                        {{venda.caixa}}</p>
+                </td>
+            </ng-container>
+
             <ng-container matColumnDef="status">
                 <th mat-header-cell *matHeaderCellDef class="thCell">Status</th>
                 <td mat-cell *matCellDef="let venda">

@@ -39,6 +39,10 @@ export class DialogEditProdutoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    this.isLoaded = false;
+    this.isLoading = !this.isLoaded;
+
     this.categoriaService.obterCategorias().subscribe((res) => {
       this.categorias = res.entity;
       let categoria = this.categorias.find(e => (e.nome.toUpperCase() == this.data.categoria.toUpperCase()));
@@ -46,6 +50,9 @@ export class DialogEditProdutoComponent implements OnInit {
       this.form.controls.nome?.setValue(this.produto.nome);
       this.form.controls.preco?.setValue(this.produto.preco.toFixed(2));
       this.form.controls.precoConsumo?.setValue(this.produto.precoConsumo.toFixed(2));
+      
+      this.isLoaded = true;
+      this.isLoading = !this.isLoaded;
     });
 
   }

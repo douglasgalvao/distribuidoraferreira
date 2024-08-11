@@ -2,8 +2,8 @@
     Editar Produto
     <span class="spacer"></span>
 </mat-toolbar>
+<app-spinner-default [isLoading]="isLoading"></app-spinner-default>
 <mat-card>
-    <app-spinner-default [isLoading]="isLoading"></app-spinner-default>
     <mat-card-content>
         <form [formGroup]="form" id="formEditProduto">
 

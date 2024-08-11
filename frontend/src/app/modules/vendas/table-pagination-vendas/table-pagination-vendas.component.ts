@@ -15,7 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./table-pagination-vendas.component.scss']
 })
 export class TablePaginationVendasComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'dataEHora', 'totalVenda', 'metodoPagamento', 'status', 'detalhes'];
+  displayedColumns: string[] = ['id', 'dataEHora', 'totalVenda', 'metodoPagamento','caixa', 'status', 'detalhes'];
   columAction: string = 'Actions';
   @Input() vendasData!: Vendas[];
   @Input() dataSource!: MatTableDataSource<Vendas>;
@@ -101,11 +101,11 @@ export class TablePaginationVendasComponent implements OnInit, AfterViewInit {
   private renderAccordingScreen() {
     let screenSize = window.innerWidth;
     if (screenSize < 500) {
-      this.displayedColumns = ['id', 'totalVenda', 'status'];
+      this.displayedColumns = ['caixa', 'totalVenda', 'status'];
     } else if (screenSize >= 500 && screenSize < 800) {
-      this.displayedColumns = ['id', 'totalVenda', 'metodoPagamento', 'status'];
+      this.displayedColumns = ['caixa', 'totalVenda', 'metodoPagamento', 'status'];
     } else if (screenSize >= 800) {
-      this.displayedColumns = ['id', 'dataEHora', 'totalVenda', 'metodoPagamento', 'status', 'detalhes'];
+      this.displayedColumns = ['caixa', 'dataEHora', 'totalVenda', 'metodoPagamento', 'status', 'detalhes'];
     }
   }
 }
