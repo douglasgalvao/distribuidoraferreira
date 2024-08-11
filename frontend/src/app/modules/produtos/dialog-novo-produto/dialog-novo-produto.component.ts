@@ -185,8 +185,8 @@ export class DialogNovoProdutoComponent implements OnInit, AfterViewInit, OnChan
         }
       );
     } else {
-      produto.preco = parseFloat(produto.preco.toString().replace(',', '.'));
-      produto.precoConsumo = parseFloat(produto.precoConsumo.toString().replace(',', '.'));
+      produto.preco = this.getValorMonetario(produto.preco as any);
+      produto.precoConsumo = this.getValorMonetario(produto.precoConsumo as any);
       produto.img = '../../../../assets/img/no_image.png';
       produto.imgID = '';
       produto.codBarras = this.form.get('codBarras')?.value;
