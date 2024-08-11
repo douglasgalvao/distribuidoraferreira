@@ -104,8 +104,6 @@ export class TableProdutosCategoriasComponent implements OnInit, AfterViewInit {
 
     this.dataSource.filterPredicate = (data: ProdutoElementRequest, filter: string) => {
       const dataStr = this.normalizeAccents(Object.values(data).join(' ').toLowerCase());
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
       return dataStr.includes(filter);
     };
   }
