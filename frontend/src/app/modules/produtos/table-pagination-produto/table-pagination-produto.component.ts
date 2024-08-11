@@ -57,7 +57,10 @@ export class TableProdutosCategoriasComponent implements OnInit, AfterViewInit {
     );
 
     this.notificationService.produtoAtualizado$.subscribe(() => {
-      this.ngAfterViewInit();
+      this.produtosService.getProdutos().subscribe(produtos => {
+        this.produtos = produtos.entity;
+        this.updateTableByProdutos(this.produtos);
+      });
     });
 
     this.renderAccordingScreen();

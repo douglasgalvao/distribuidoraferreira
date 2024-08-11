@@ -121,7 +121,7 @@ export class ProdutosComponent implements OnInit {
       }
     );
 
-    this.notificationService.produtoAtualizado$.subscribe(() => this.ngOnInit());
+    // this.notificationService.produtoAtualizado$.subscribe(() => this.ngOnInit());
 
     this.notificationService.produtoDeletado$.subscribe(
       produtoId => {
