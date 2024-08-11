@@ -94,17 +94,16 @@ export class DialogNovoProdutoComponent implements OnInit, AfterViewInit, OnChan
 
     return num.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
-
+  
   getValorMonetario(value: string): number {
-    value = value.replace(/[^\d]/g, '');
+    value = value.toString().replace(/[^\d]/g, '');
 
-    while (value.length < 3) {
+    while (value.length <= 3) {
       value = '0' + value;
     }
 
     const integerPart = value.slice(0, -2);
     const fractionalPart = value.slice(-2);
-
 
     return parseFloat(integerPart + '.' + fractionalPart);
   }
