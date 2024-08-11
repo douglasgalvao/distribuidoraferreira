@@ -3,7 +3,7 @@ import { MenuLateralItens } from '../../../models/models';
 
 
 export const Menu: MenuLateralItens[] = [
-    { nome: "Home", linkRouter: "/home", iconName: "home" },
+    { nome: "Fácil Acesso", linkRouter: "/home", iconName: "home" },
     { nome: "Caixa", linkRouter: "/caixa", iconName: "money" },
     { nome: "Produtos", linkRouter: "/produtos", iconName: "fastfood" },
     { nome: "Produtos do Estoque", linkRouter: "/estoque", iconName: "credit_card" },
