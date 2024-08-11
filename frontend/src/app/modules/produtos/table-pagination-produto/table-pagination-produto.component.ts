@@ -20,7 +20,7 @@ import { DrawerService } from 'src/app/service/drawer/drawer.service';
   templateUrl: './table-pagination-produto.component.html',
   styleUrls: ['./table-pagination-produto.component.scss']
 })
-export class TableProdutosCategoriasComponent implements OnInit {
+export class TableProdutosCategoriasComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'nome', 'preco', 'precoConsumo', 'categoria'];
   columAction: string = 'Editar';
   @Input() produtos: ProdutoElement[] = [];
@@ -35,9 +35,12 @@ export class TableProdutosCategoriasComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
 
+  ngAfterViewInit(): void {
     this.updateTable();
+  }
+
+  ngOnInit(): void {
 
     this.notificationService.produtoCriado$.subscribe(
       produto => {
