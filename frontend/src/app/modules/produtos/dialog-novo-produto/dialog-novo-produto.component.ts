@@ -79,7 +79,6 @@ export class DialogNovoProdutoComponent implements OnInit, AfterViewInit, OnChan
     }
   }
 
-
   onInputPoint(event: any) {
     const input = event.target as HTMLInputElement;
     input.value = this.formatCurrency(input.value);
@@ -94,6 +93,7 @@ export class DialogNovoProdutoComponent implements OnInit, AfterViewInit, OnChan
 
     return num.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
+
 
   getValorMonetario(value: string): number {
     value = value.toString().replace(/[^\d]/g, '');
