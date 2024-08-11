@@ -57,7 +57,7 @@ export class TableProdutosCategoriasComponent implements OnInit, AfterViewInit {
     );
 
     this.notificationService.produtoAtualizado$.subscribe(() => {
-      this.dataSource.paginator = this.paginator;
+      this.ngAfterViewInit();
     });
 
     this.renderAccordingScreen();
