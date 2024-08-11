@@ -151,6 +151,9 @@ export class DialogNovoProdutoComponent implements OnInit, AfterViewInit, OnChan
           produto.img = res.entity.img;
           produto.imgID = res.entity.imgID;
           produto.codBarras = this.form.get('codBarras')?.value;
+
+          console.log(produto)
+
           this.produtoService.cadastrarNovoProduto(produto).subscribe(
             produto => {
               this.notificationService.notificarProdutoCriado(produto);
@@ -165,8 +168,8 @@ export class DialogNovoProdutoComponent implements OnInit, AfterViewInit, OnChan
         }
       );
     } else if (this.photoImgUrlAPI.length && !this.fotoSelecionada) {
-      produto.preco = parseFloat(produto.preco.toString().replace(',', '.'));
-      produto.precoConsumo = parseFloat(produto.precoConsumo.toString().replace(',', '.'));
+      produto.preco = this.getValorMonetario(produto.preco as any);
+      produto.precoConsumo = this.getValorMonetario(produto.precoConsumo as any);
       produto.img = this.photoImgUrlAPI;
       produto.imgID = '';
       produto.codBarras = this.form.get('codBarras')?.value;
