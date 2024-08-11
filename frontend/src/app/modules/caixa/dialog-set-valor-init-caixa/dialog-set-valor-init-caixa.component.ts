@@ -2,6 +2,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { caixaRequest } from 'src/app/models/models';
 import { CaixaService } from 'src/app/service/caixa/caixa.service';
 import { NotificationService } from 'src/app/service/notifications/notifications.service';
@@ -25,7 +26,8 @@ export class DialogSetValorInitCaixaComponent {
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<DialogSetValorInitCaixaComponent>,
     private caixaService: CaixaService,
-    private notification: NotificationService
+    private notification: NotificationService,
+    private _snackBar: MatSnackBar
   ) {
     this.form = this.fb.group({
       valor_inicial: ['', Validators.required]
@@ -38,6 +40,11 @@ export class DialogSetValorInitCaixaComponent {
 
     this.caixaService.setValorInicial(value).subscribe((res) => {
       this.notification.notificarCaixaAlterado();
+      this._snackBar.open(res.entity, 'Fechar', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
       this.closeDialog();
     });
   }

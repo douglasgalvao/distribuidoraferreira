@@ -34,7 +34,6 @@ export class DialogListEditComandaComponent implements OnInit {
   getVendasByComanda(): any {
     this.vendaService.obterVendasByComanda(this.comandaDetails.id).subscribe((e) => {
       this.comandaDetails.venda = e.entity;
-      console.log(this.comandaDetails.venda)
     })
   }
 

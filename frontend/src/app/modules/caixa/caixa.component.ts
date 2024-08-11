@@ -61,7 +61,7 @@ export class CaixaComponent implements OnInit {
             this.isLoaded = true;
             this.isLoading = !this.isLoaded;
 
-            const faturamentoDia = caixa.entity.faturamento_dia ?? 0.0;
+            const faturamentoDia = caixa.entity ? caixa.entity.faturamento_dia : 0.0;
 
             this.balance.value = faturamentoDia;
             this.balance.arrowType = faturamentoDia > 0 ? 'up' : 'down';
@@ -72,26 +72,38 @@ export class CaixaComponent implements OnInit {
             this.isLoading = !this.isLoaded;
         })
 
-        this.notificationService.caixaAlterado$.subscribe(() => forkJoin({
-            getCaixas: this.caixaService.getCaixas(),
-            caixa: this.caixaService.getCaixa(),
-            caixaID: this.caixaService.getCaixaID(),
-            caixaAberto: this.caixaService.verificarCaixa()
-        }).subscribe(({ getCaixas, caixa, caixaID, caixaAberto }) => {
-            getCaixas.entity.forEach((e: Caixa) => {
-                e.data_hora = this.formatarData(e.data_hora);
-            });
-            this.caixasData = getCaixas.entity;
-            this.dataSource = new MatTableDataSource(this.caixasData);
+        this.notificationService.caixaAlterado$.subscribe((e) => {
+            this.isLoaded = false;
+            this.isLoading = !this.isLoaded;
 
-            const faturamentoDia = caixa.entity.faturamento_dia ?? 0.0;
+            forkJoin({
+                getCaixas: this.caixaService.getCaixas(),
+                caixa: this.caixaService.getCaixa(),
+                caixaID: this.caixaService.getCaixaID(),
+                caixaAberto: this.caixaService.verificarCaixa()
+            }).subscribe(({ getCaixas, caixa, caixaID, caixaAberto }) => {
 
-            this.balance.value = faturamentoDia;
-            this.balance.arrowType = faturamentoDia > 0 ? 'up' : 'down';
+                getCaixas.entity.forEach((e: Caixa) => {
+                    e.data_hora = this.formatarData(e.data_hora);
+                });
+                this.caixasData = getCaixas.entity;
+                this.dataSource = new MatTableDataSource(this.caixasData);
 
-            this.caixaID = caixaID.entity;
-            this.caixaAberto = caixaAberto.entity;
-        }))
+                const faturamentoDia = caixa.entity ? caixa.entity.faturamento_dia : 0.0;
+
+                this.balance.value = faturamentoDia;
+                this.balance.arrowType = faturamentoDia > 0 ? 'up' : 'down';
+
+                this.caixaID = caixaID.entity;
+                this.caixaAberto = caixaAberto.entity;
+
+                console.group(caixaAberto.entity);
+
+                this.isLoaded = true;
+                this.isLoading = !this.isLoaded;
+            })
+        })
+
 
     }
 

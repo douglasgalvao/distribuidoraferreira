@@ -35,7 +35,6 @@ export class ClienteService {
 
   pagarContaCliente(id: Number, idVenda: Number, total_venda: Number, metodoPagamento: string): Observable<BasicResponse<string>> {
     let pagamentoRequest = { idCliente: id, idVenda: idVenda, valorPago: total_venda, metodoPagamento: metodoPagamento }
-    console.log(pagamentoRequest)
     return this.http.post<BasicResponse<string>>(this.apiUrl + '/contas-cliente/pagar', pagamentoRequest);
   }
 

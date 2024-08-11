@@ -34,7 +34,6 @@ export class DialogCreateComandaComponent implements OnInit {
   ngOnInit(): void {
     this.clienteService.obterClientes().subscribe(
       (res) => {
-        console.log(res.entity)
         this.clientes = res.entity;
       }
     )
