@@ -76,7 +76,10 @@ mat-form-field {
 }
 
 .atualFotoProduto {
-  margin: 2rem;
+    margin: 2rem;
+    img{
+        object-fit: contain;
+    }
 }
 
 .file-upload:hover {
