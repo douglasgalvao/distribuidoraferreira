@@ -2,7 +2,7 @@
     <mat-card-content>
         <mat-form-field>
             <mat-label>Buscar Produto</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Pesquisar" #input>
+            <input matInput (input)="applyFilter($event)" placeholder="Pesquisar" #input>
         </mat-form-field>
 
         <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
