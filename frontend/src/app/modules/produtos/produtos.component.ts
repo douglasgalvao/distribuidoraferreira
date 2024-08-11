@@ -109,6 +109,8 @@ export class ProdutosComponent implements OnInit {
 
       this.dataSourceCategoria = new MatTableDataSource<CategoriaElement>(this.categorias);
       this.dataSourceProduto = new MatTableDataSource<ProdutoElementRequest>(this.produtosRequest);
+      this.dataSourceProduto.paginator = this.dataSourceProduto.paginator!;
+
       this.isLoaded = true;
       this.isLoading = !this.isLoaded;
     });
